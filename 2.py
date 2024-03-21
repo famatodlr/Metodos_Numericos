@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# from scipy.interpolate import lagrange, CubicSpline
+from scipy.interpolate import lagrange, CubicSpline
 from scipy.interpolate import interp1d
 
 
@@ -14,12 +14,10 @@ def arreglo_csv(nombre_archivo):
     df = df.astype(float)
     return df
 
-df = arreglo_csv('mnyo_medidas.csv')
+df = arreglo_csv('mnyo_mediciones.csv')
 df_gt = arreglo_csv('mnyo_ground_truth.csv')
 
 
-# t = np.arange(len(df))
-# t_gt = np.arange(len(df_gt))
 x1 = df['x1'].values
 x2 = df['x2'].values
 x1_gt = df_gt['x1'].values
@@ -29,9 +27,12 @@ x2_gt = df_gt['x2'].values
 num_measurements = len(x1)
 tiempo = np.linspace(0, num_measurements - 1, num_measurements)  # Creamos el tiempo
 
-# Paso 2: Interpolar las posiciones
-interp_x1 = interp1d(tiempo, x1, kind='linear')
-interp_x2 = interp1d(tiempo, x2, kind='linear')
+# # Paso 2: Interpolar las posiciones
+# interp_x1 = interp1d(tiempo, x1, kind='linear')
+# interp_x2 = interp1d(tiempo, x2, kind='linear')
+interp_x1 = CubicSpline(tiempo, x1)
+interp_x2 = CubicSpline(tiempo, x2)
+
 
 # Creamos un conjunto de tiempo continuo para la interpolación
 tiempo_continuo = np.linspace(0, num_measurements - 1, 10*num_measurements)  # Más puntos para una interpolación suave
@@ -40,7 +41,23 @@ tiempo_continuo = np.linspace(0, num_measurements - 1, 10*num_measurements)  # M
 x1_interpolado = interp_x1(tiempo_continuo)
 x2_interpolado = interp_x2(tiempo_continuo)
 
-# Paso 3: Comparar trayectorias
+# Paso 3: calcular el error relativo
+error_x1 = np.abs(x1_interpolado - x1_gt) / np.abs(x1_gt)
+error_x2 = np.abs(x2_interpolado - x2_gt) / np.abs(x2_gt)
+
+# Graficar el error relativo
+plt.figure(figsize=(10, 6))
+plt.plot(tiempo_continuo, error_x1, label='Error relativo x1', color='blue')
+plt.plot(tiempo_continuo, error_x2, label='Error relativo x2', color='red')
+plt.xlabel('Tiempo')
+plt.ylabel('Error relativo')
+plt.title('Error relativo en la interpolación')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+# Paso 4: Comparar trayectorias
 plt.figure(figsize=(10, 6))
 plt.plot(x1_gt, x2_gt, label='Ground Truth', color='blue')
 plt.plot(x1_interpolado, x2_interpolado, label='Interpolated', linestyle='--', color='red')
