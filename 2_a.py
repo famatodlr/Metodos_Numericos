@@ -45,18 +45,6 @@ x2_interpolado = interp_x2(tiempo_continuo)
 error_x1 = np.abs(x1_interpolado - x1_gt) / np.abs(x1_gt)
 error_x2 = np.abs(x2_interpolado - x2_gt) / np.abs(x2_gt)
 
-# Graficar el error relativo
-plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x1, label='Error relativo x1', color='blue')
-plt.plot(tiempo_continuo, error_x2, label='Error relativo x2', color='red')
-plt.xlabel('Tiempo')
-plt.ylabel('Error relativo')
-plt.title('Error relativo en la interpolación')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-
 # Paso 4: Comparar trayectorias
 plt.figure(figsize=(10, 6))
 plt.plot(x1_gt, x2_gt, label='Ground Truth', color='blue')
@@ -70,79 +58,13 @@ plt.grid(True)
 plt.show()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # 2. Interpolar los valores de x1 y x2 por separado
-# # Interpolación de x1
-# lagrange_poly_x1 = lagrange(t, x1)
-# # Interpolación de x2
-# lagrange_poly_x2 = lagrange(t, x2)
-# #interpolacion de los dos interpoladores 
-# lagrange_poly_x = lagrange(lagrange_poly_x1, lagrange_poly_x2)
-
-
-
-
-
-# # 4. Graficar
-# plt.figure(figsize=(12, 6))
-
-# # Comparación entre x1 y x2 interpolados y ground truth
-# plt.subplot(1, 2, 1)
-# plt.plot(t, x1, label='x1', color='blue')
-# plt.plot(t, lagrange_poly_x1(t), label='Interpolación de x1', linestyle='--', color='red')
-# plt.plot(t_gt, x1_gt, label='x1 ground truth', linestyle='-.', color='green')
-# plt.plot(t_gt, lagrange_poly_x1_gt(t_gt), label='Interpolación de x1 ground truth', linestyle=':', color='purple')
-# plt.title('Comparación entre x1 y su interpolación')
-# plt.xlabel('t')
-# plt.ylabel('x1')
-# plt.legend()
-# plt.grid(True)
-
-# plt.subplot(1, 2, 2)
-# plt.plot(t, x2, label='x2', color='blue')
-# plt.plot(t, lagrange_poly_x2(t), label='Interpolación de x2', linestyle='--', color='red')
-# plt.plot(t_gt, x2_gt, label='x2 ground truth', linestyle='-.', color='green')
-# plt.plot(t_gt, lagrange_poly_x2_gt(t_gt), label='Interpolación de x2 ground truth', linestyle=':', color='purple')
-# plt.title('Comparación entre x2 y su interpolación')
-# plt.xlabel('t')
-# plt.ylabel('x2')
-# plt.legend()
-# plt.grid(True)
-
-# plt.show()
+# Graficar el error relativo
+plt.figure(figsize=(10, 6))
+plt.plot(tiempo_continuo, error_x1, label='Error relativo x1', color='blue')
+plt.plot(tiempo_continuo, error_x2, label='Error relativo x2', color='red')
+plt.xlabel('Tiempo')
+plt.ylabel('Error relativo')
+plt.title('Error relativo en la interpolación')
+plt.legend()
+plt.grid(True)
+plt.show()
