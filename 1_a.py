@@ -29,31 +29,16 @@ y_lagrange = lagrange_poly(x_values)
 spline = CubicSpline(x_interpolation, y_interpolation)
 y_spline = spline(x_values)
 
-# Polinomios de Chebyshev
-def chebyshev_polynomial_interpolation(n, a, b):
-    x = np.cos((2 * np.arange(1, n + 1) - 1) * np.pi / (2 * n))
-    y = fa((b - a) / 2 * x + (a + b) / 2)
-    c = numpy.polynomial.chebyshev.chebfit(x, y, n - 1)
-    return numpy.polynomial.chebyshev.Chebyshev(c, domain=[a, b])
-
-n_chebyshev = 10
-chebyshev_poly = chebyshev_polynomial_interpolation(n_chebyshev, a, b)
-y_chebyshev = chebyshev_poly(x_values)
-chebroots = chebyshev_poly.roots()
-
 # Errores relativos
 error_lagrange = np.abs((y_values - y_lagrange) / y_values)
 error_spline = np.abs((y_values - y_spline) / y_values)
-error_chebyshev = np.abs((y_values - y_chebyshev) / y_values)
 
 # Graficar
 def graficos():
     plt.figure(figsize=(12, 6))
-    #quiero hacer que los graficos tengan relacion 1:1, como hago eso?
-    # plt.axis('equal')
 
     # Función original y Lagrage
-    plt.subplot(3, 2, 1)
+    plt.subplot(2, 2, 1)
     plt.plot(x_values, y_values, label='fa(x)', color='blue')
     plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
     plt.plot(x_values, y_lagrange, label='Interpolación de Lagrange', linestyle='--', color='red')
@@ -65,7 +50,7 @@ def graficos():
 
 
     # Error relativo de Lagrange
-    plt.subplot(3, 2, 2)
+    plt.subplot(2, 2, 2)
     plt.plot(x_values, error_lagrange, label='Error relativo de Lagrange', color='red')
     plt.title('Error relativo de Lagrange')
     plt.xlabel('x', fontweight='bold', loc='right')
@@ -74,7 +59,7 @@ def graficos():
     plt.grid(True)
 
     # Función original y Spline
-    plt.subplot(3, 2, 3)
+    plt.subplot(2, 2, 3)
     plt.plot(x_values, y_spline, label='Polinomio cúbico spline', linestyle='-.', color='green')
     plt.plot(x_values, y_values, label='fa(x)', color='blue')
     plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
@@ -85,7 +70,7 @@ def graficos():
     plt.grid(True)
 
     #Error relativo de Spline
-    plt.subplot(3, 2, 4)
+    plt.subplot(2, 2, 4)
     plt.title('Error relativo de Spline')
     plt.plot(x_values, error_spline, label='Error relativo del polinomio cúbico spline', color='green')
     plt.xlabel('x', fontweight='bold', loc='right')
@@ -93,28 +78,71 @@ def graficos():
     plt.legend()
     plt.grid(True)
 
-    # Función original y Chebyshev
-    plt.subplot(3, 2, 5)
-    plt.plot(x_values, y_chebyshev, label='Polinomio de Chebyshev', linestyle=':', color='purple')
+    plt.tight_layout()
+    plt.show()
+
+def raices_chebyshev(n):
+    
+
+
+x_no_equispaciados = raices_chebyshev(n_interpolation_points)
+y_no_equispaciados = fa(x_no_equispaciados)
+
+lagrange_poly_no_equispaciados = lagrange(x_no_equispaciados, y_no_equispaciados)
+y_lagrange_no_equispaciados = lagrange_poly_no_equispaciados(x_values)
+
+spline_no_equispaciados = CubicSpline(x_no_equispaciados, y_no_equispaciados)
+y_spline_no_equispaciados = spline_no_equispaciados(x_values)
+
+error_lagrange_no_equispaciados = np.abs((y_values - y_lagrange_no_equispaciados) / y_values)
+error_spline_no_equispaciados = np.abs((y_values - y_spline_no_equispaciados) / y_values)
+
+def graficos_no_equispaciados():
+    plt.figure(figsize=(12, 6))
+
+    # Función original y Lagrage
+    plt.subplot(2, 2, 1)
     plt.plot(x_values, y_values, label='fa(x)', color='blue')
-    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
-    plt.title('Comparación entre fa(x) y Polinomio de Chebyshev')
+    plt.scatter(x_no_equispaciados, y_no_equispaciados, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_lagrange_no_equispaciados, label='Interpolación de Lagrange', linestyle='--', color='red')
+    plt.title('Comparación entre fa(x), Interpolación de Lagrange')
     plt.xlabel('x', fontweight='bold', loc='right')
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 
-    #Error relativo de Chebyshev
-    plt.subplot(3, 2, 6)
-    plt.title('Error relativo de Chebyshev')
-    plt.plot(x_values, error_chebyshev, label='Error relativo del polinomio de Chebyshev', color='purple')
+
+    # Error relativo de Lagrange
+    plt.subplot(2, 2, 2)
+    plt.plot(x_values, error_lagrange_no_equispaciados, label='Error relativo de Lagrange', color='red')
+    plt.title('Error relativo de Lagrange')
     plt.xlabel('x', fontweight='bold', loc='right')
     plt.ylabel('Error relativo', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 
+    # Función original y Spline
+    plt.subplot(2, 2, 3)
+    plt.plot(x_values, y_spline_no_equispaciados, label='Polinomio cúbico spline', linestyle='-.', color='green')
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_no_equispaciados, y_no_equispaciados, label='Puntos de interpolación', color='black')
+    plt.title('Comparación entre fa(x) y Polinomi cúbico spline')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('fa(x)', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+
+    #Error relativo de Spline
+    plt.subplot(2, 2, 4)
+    plt.title('Error relativo de Spline')
+    plt.plot(x_values, error_spline_no_equispaciados, label='Error relativo del polinomio cúbico', color='green')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('Error relativo', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
 
     plt.tight_layout()
     plt.show()
 
 graficos()
+graficos_no_equispaciados()

@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.interpolate import lagrange, CubicSpline
+from mpl_toolkits.mplot3d import Axes3D
 from numpy import linspace
 from numpy import meshgrid
 from scipy.interpolate import griddata
@@ -43,13 +43,14 @@ ax.set_xlabel('x1')
 ax.set_ylabel('x2')
 plt.show()
 
-
 # comparacion del error de la interpolacion con la funcion de franke
 z_real = function(x1, x2)
 error = np.abs(z_real - z_interpolation)
-plt.imshow(error, cmap='viridis')
-plt.colorbar()
-plt.title('Error de la interpolacion')
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(x1, x2, error, cmap='viridis')
+ax.set_title('Error')
+#nombrar los ejes
+ax.set_xlabel('x1')
+ax.set_ylabel('x2')
 plt.show()
-
-#error por coodenadas

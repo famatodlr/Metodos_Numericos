@@ -7,7 +7,7 @@ from scipy.interpolate import interp1d
 
 def arreglo_csv(nombre_archivo):
     df = pd.read_csv(nombre_archivo, header=None, names=['x'])
-    # Separar los valores de x1 y x2 en dos columnas distintas
+    # Separar los valores de x y y en dos columnas distintas
     df = df['x'].str.split(' ', expand=True)
     df.columns = ['x1', 'x2']
     # Convertir a float
@@ -18,40 +18,37 @@ df = arreglo_csv('mnyo_mediciones.csv')
 df_gt = arreglo_csv('mnyo_ground_truth.csv')
 
 
-x1 = df['x1'].values
-x2 = df['x2'].values
-x1_gt = df_gt['x1'].values
-x2_gt = df_gt['x2'].values
+x = df['x1'].values
+y = df['x2'].values
+x_gt = df_gt['x1'].values
+y_gt = df_gt['x2'].values
 
 # Asumimos que hay un intervalo de tiempo constante entre cada medición
-num_measurements = len(x1)
+num_measurements = len(x)
 tiempo = np.linspace(0, num_measurements - 1, num_measurements)  # Creamos el tiempo
 
-# # Paso 2: Interpolar las posiciones
-# interp_x1 = interp1d(tiempo, x1, kind='linear')
-# interp_x2 = interp1d(tiempo, x2, kind='linear')
-interp_x1 = CubicSpline(tiempo, x1)
-interp_x2 = CubicSpline(tiempo, x2)
-
+#  Interpolar las posiciones con splines cúbicos
+interp_x = CubicSpline(tiempo, x)
+interp_y = CubicSpline(tiempo, y)
 
 # Creamos un conjunto de tiempo continuo para la interpolación
 tiempo_continuo = np.linspace(0, num_measurements - 1, 10*num_measurements)  # Más puntos para una interpolación suave
 
 # Interpolamos las posiciones en el conjunto de tiempo continuo
-x1_interpolado = interp_x1(tiempo_continuo)
-x2_interpolado = interp_x2(tiempo_continuo)
+x_interpolado = interp_x(tiempo_continuo)
+y_interpolado = interp_y(tiempo_continuo)
 
-# Paso 3: calcular el error relativo
-error_x1 = np.abs(x1_interpolado - x1_gt) / np.abs(x1_gt)
-error_x2 = np.abs(x2_interpolado - x2_gt) / np.abs(x2_gt)
+# calcular el error relativo
+error_x = np.abs(x_interpolado - x_gt) / np.abs(x_gt)
+error_y = np.abs(y_interpolado - y_gt) / np.abs(y_gt)
 
-# Paso 4: Comparar trayectorias
+# Comparar trayectorias
 plt.figure(figsize=(10, 6))
-plt.plot(x1_gt, x2_gt, label='Ground Truth', color='blue')
-plt.plot(x1_interpolado, x2_interpolado, label='Interpolated', linestyle='--', color='red')
-plt.scatter(x1, x2, label='Measurements', color='green', alpha=0.5)
-plt.xlabel('X1')
-plt.ylabel('X2')
+plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
+plt.plot(x_interpolado, y_interpolado, label='Interpolated', linestyle='--', color='red')
+plt.scatter(x, y, label='Measurements', color='green', alpha=0.5)
+plt.xlabel('x')
+plt.ylabel('y')
 plt.title('Comparación de Trayectorias')
 plt.legend()
 plt.grid(True)
@@ -60,8 +57,43 @@ plt.show()
 
 # Graficar el error relativo
 plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x1, label='Error relativo x1', color='blue')
-plt.plot(tiempo_continuo, error_x2, label='Error relativo x2', color='red')
+plt.plot(tiempo_continuo, error_x, label='Error relativo x', color='blue')
+plt.plot(tiempo_continuo, error_y, label='Error relativo y', color='red')
+plt.xlabel('Tiempo')
+plt.ylabel('Error relativo')
+plt.title('Error relativo en la interpolación')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Interpolar las posiciones con el metodo de lagrange
+interp_x_lagrange = lagrange(tiempo, x)
+interp_y_lagrange = lagrange(tiempo, y)
+
+# Interpolamos las posiciones en el conjunto de tiempo continuo
+x_interpolado_lagrange = interp_x_lagrange(tiempo_continuo)
+y_interpolado_lagrange = interp_y_lagrange(tiempo_continuo)
+
+# calcular el error relativo
+error_x_lagrange = np.abs(x_interpolado_lagrange - x_gt) / np.abs(x_gt)
+error_y_lagrange = np.abs(y_interpolado_lagrange - y_gt) / np.abs(y_gt)
+
+# Comparar trayectorias
+plt.figure(figsize=(10, 6))
+plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
+plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolated', linestyle='--', color='red')
+plt.scatter(x, y, label='Measurements', color='green', alpha=0.5)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Comparación de Trayectorias')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Graficar el error relativo
+plt.figure(figsize=(10, 6))
+plt.plot(tiempo_continuo, error_x_lagrange, label='Error relativo x', color='blue')
+plt.plot(tiempo_continuo, error_y_lagrange, label='Error relativo y', color='red')
 plt.xlabel('Tiempo')
 plt.ylabel('Error relativo')
 plt.title('Error relativo en la interpolación')
