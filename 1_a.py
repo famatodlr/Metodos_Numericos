@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import lagrange, CubicSpline
 import numpy.polynomial.chebyshev
+import math as m
 
 # Definir la función fa(x)
 def fa(x):
@@ -20,6 +21,7 @@ y_values = fa(x_values)
 n_interpolation_points = 10
 x_interpolation = np.linspace(a, b, n_interpolation_points)
 y_interpolation = fa(x_interpolation)
+
 
 # Interpolación de Lagrange
 lagrange_poly = lagrange(x_interpolation, y_interpolation)
@@ -81,11 +83,20 @@ def graficos():
     plt.tight_layout()
     plt.show()
 
-def raices_chebyshev(n):
-    
+def get_chevichev_roots(n, a, b) -> list[int]:
+    """
+    Get the chevichev roots
+    n: number of roots
+    a: start of the interval (included)
+    b: end of the interval (included)
+    """
+    roots = []
+    for k in range(n - 1, 1, -1):
+        roots.append((a+b)/2 + (b-a)/2 * m.cos(((2*k-1)/(2*n)) * m.pi))
 
+    return (roots)
 
-x_no_equispaciados = raices_chebyshev(n_interpolation_points)
+x_no_equispaciados = np.array(get_chevichev_roots(n_interpolation_points, a, b))
 y_no_equispaciados = fa(x_no_equispaciados)
 
 lagrange_poly_no_equispaciados = lagrange(x_no_equispaciados, y_no_equispaciados)
