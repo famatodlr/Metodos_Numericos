@@ -31,9 +31,9 @@ y_lagrange = lagrange_poly(x_values)
 spline = CubicSpline(x_interpolation, y_interpolation)
 y_spline = spline(x_values)
 
-# Errores relativos
-error_lagrange = np.abs((y_values - y_lagrange) / y_values)
-error_spline = np.abs((y_values - y_spline) / y_values)
+# Errores absolutos
+error_lagrange = np.abs(y_values - y_lagrange)
+error_spline = np.abs((y_values - y_spline))
 
 # Graficar
 def graficos():
@@ -51,12 +51,12 @@ def graficos():
     plt.grid(True)
 
 
-    # Error relativo de Lagrange
+    # Error absoluto de Lagrange
     plt.subplot(2, 2, 2)
-    plt.plot(x_values, error_lagrange, label='Error relativo de Lagrange', color='red')
-    plt.title('Error relativo de Lagrange')
+    plt.plot(x_values, error_lagrange, label='Error absoluto de Lagrange', color='red')
+    plt.title('Error absoluto de Lagrange')
     plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error relativo', fontweight='bold', loc='top')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 
@@ -71,12 +71,12 @@ def graficos():
     plt.legend()
     plt.grid(True)
 
-    #Error relativo de Spline
+    #Error absoluto de Spline
     plt.subplot(2, 2, 4)
-    plt.title('Error relativo de Spline')
-    plt.plot(x_values, error_spline, label='Error relativo del polinomio cúbico spline', color='green')
+    plt.title('Error absoluto de Spline')
+    plt.plot(x_values, error_spline, label='Error absoluto del polinomio cúbico spline', color='green')
     plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error relativo', fontweight='bold', loc='top')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 
@@ -105,8 +105,8 @@ y_lagrange_no_equispaciados = lagrange_poly_no_equispaciados(x_values)
 spline_no_equispaciados = CubicSpline(x_no_equispaciados, y_no_equispaciados)
 y_spline_no_equispaciados = spline_no_equispaciados(x_values)
 
-error_lagrange_no_equispaciados = np.abs((y_values - y_lagrange_no_equispaciados) / y_values)
-error_spline_no_equispaciados = np.abs((y_values - y_spline_no_equispaciados) / y_values)
+error_lagrange_no_equispaciados = np.abs((y_values - y_lagrange_no_equispaciados))
+error_spline_no_equispaciados = np.abs((y_values - y_spline_no_equispaciados))
 
 def graficos_no_equispaciados():
     plt.figure(figsize=(12, 6))
@@ -123,12 +123,12 @@ def graficos_no_equispaciados():
     plt.grid(True)
 
 
-    # Error relativo de Lagrange
+    # Error absoluto de Lagrange
     plt.subplot(2, 2, 2)
-    plt.plot(x_values, error_lagrange_no_equispaciados, label='Error relativo de Lagrange', color='red')
-    plt.title('Error relativo de Lagrange')
+    plt.plot(x_values, error_lagrange_no_equispaciados, label='Error absoluto de Lagrange', color='red')
+    plt.title('Error absoluto de Lagrange')
     plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error relativo', fontweight='bold', loc='top')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 
@@ -143,12 +143,12 @@ def graficos_no_equispaciados():
     plt.legend()
     plt.grid(True)
 
-    #Error relativo de Spline
+    #Error absoluto de Spline
     plt.subplot(2, 2, 4)
-    plt.title('Error relativo de Spline')
-    plt.plot(x_values, error_spline_no_equispaciados, label='Error relativo del polinomio cúbico', color='green')
+    plt.title('Error absoluto de Spline')
+    plt.plot(x_values, error_spline_no_equispaciados, label='Error absoluto del polinomio cúbico', color='green')
     plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error relativo', fontweight='bold', loc='top')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
 

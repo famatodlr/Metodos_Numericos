@@ -27,17 +27,20 @@ yB = dfB['x2'].values
 tiempoA = np.linspace(0, len(xA) - 1, len(xA))
 tiempoB = np.linspace(0, len(xB) - 1, len(xB))
 
-tiempo_continuo = np.linspace(0, len(xA) - 1, 10*len(xA)) # Más puntos para una interpolación suave
+tiempo_continuoA = np.linspace(0, len(xA) - 1, 10*len(xA)) # Más puntos para una interpolación suave
+tiempo_continuoB = np.linspace(0, len(xB) - 1, 10*len(xB))
 
 interpA_x = CubicSpline(tiempoA, xA)
 interpA_y = CubicSpline(tiempoA, yA)
-xA_interpolado = interpA_x(tiempo_continuo)
-yA_interpolado = interpA_y(tiempo_continuo)
+xA_interpolado = interpA_x(tiempo_continuoA)
+yA_interpolado = interpA_y(tiempo_continuoA)
 
 interpB_x = CubicSpline(tiempoB, xB)
 interpB_y = CubicSpline(tiempoB, yB)
-xB_interpolado = interpB_x(tiempo_continuo)
-yB_interpolado = interpB_y(tiempo_continuo)
+xB_interpolado = interpB_x(tiempo_continuoA)
+yB_interpolado = interpB_y(tiempo_continuoA)
+xB_graficar = interpB_x(tiempo_continuoB)
+yB_graficar = interpB_y(tiempo_continuoB)
 
 def jac(t1, t2):
     return np.array([[interpA_x.derivative()(t1), -interpB_x.derivative()(t2)], [interpA_y.derivative()(t1), -interpB_y.derivative()(t2)]])
@@ -71,7 +74,7 @@ r_y = interpA_y(punto_cruce[0])
 # Comparar trayectorias
 plt.figure(figsize=(10, 6))
 plt.plot(xA_interpolado, yA_interpolado, label='Funcion A', color='blue')
-plt.plot(xB_interpolado, yB_interpolado, label='Funcion B', color='red')
+plt.plot(xB_graficar, yB_graficar, label='Funcion B', color='red')
 plt.scatter(xA, yA, label='Measurements A', color='blue', alpha=0.5)
 plt.scatter(xB, yB, label='Measurements B', color='red', alpha=0.5)
 plt.scatter(r_x, r_y, label='Intersection', color='green', s=50)

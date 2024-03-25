@@ -38,9 +38,9 @@ tiempo_continuo = np.linspace(0, num_measurements - 1, 10*num_measurements)  # M
 x_interpolado = interp_x(tiempo_continuo)
 y_interpolado = interp_y(tiempo_continuo)
 
-# calcular el error relativo
-error_x = np.abs(x_interpolado - x_gt) / np.abs(x_gt)
-error_y = np.abs(y_interpolado - y_gt) / np.abs(y_gt)
+# calcular el error absoluto
+error_x = np.abs(x_interpolado - x_gt)
+error_y = np.abs(y_interpolado - y_gt)
 
 # Comparar trayectorias
 plt.figure(figsize=(10, 6))
@@ -49,19 +49,19 @@ plt.plot(x_interpolado, y_interpolado, label='Interpolated', linestyle='--', col
 plt.scatter(x, y, label='Measurements', color='green', alpha=0.5)
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Comparación de Trayectorias')
+plt.title('Comparación de Trayectorias con Splines Cúbicos')
 plt.legend()
 plt.grid(True)
 plt.show()
 
 
-# Graficar el error relativo
+# Graficar el error absoluto
 plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x, label='Error relativo x', color='blue')
-plt.plot(tiempo_continuo, error_y, label='Error relativo y', color='red')
+plt.plot(tiempo_continuo, error_x, label='Error absoluto x', color='blue')
+plt.plot(tiempo_continuo, error_y, label='Error absoluto y', color='red')
 plt.xlabel('Tiempo')
-plt.ylabel('Error relativo')
-plt.title('Error relativo en la interpolación')
+plt.ylabel('Error absoluto')
+plt.title('Error absoluto en la interpolación con Splines Cúbicos')
 plt.legend()
 plt.grid(True)
 plt.show()
@@ -74,9 +74,9 @@ interp_y_lagrange = lagrange(tiempo, y)
 x_interpolado_lagrange = interp_x_lagrange(tiempo_continuo)
 y_interpolado_lagrange = interp_y_lagrange(tiempo_continuo)
 
-# calcular el error relativo
-error_x_lagrange = np.abs(x_interpolado_lagrange - x_gt) / np.abs(x_gt)
-error_y_lagrange = np.abs(y_interpolado_lagrange - y_gt) / np.abs(y_gt)
+# calcular el error absoluto
+error_x_lagrange = np.abs(x_interpolado_lagrange - x_gt)
+error_y_lagrange = np.abs(y_interpolado_lagrange - y_gt)
 
 # Comparar trayectorias
 plt.figure(figsize=(10, 6))
@@ -85,18 +85,18 @@ plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolated', l
 plt.scatter(x, y, label='Measurements', color='green', alpha=0.5)
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Comparación de Trayectorias')
+plt.title('Comparación de Trayectorias con Lagrange')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Graficar el error relativo
+# Graficar el error absoluto
 plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x_lagrange, label='Error relativo x', color='blue')
-plt.plot(tiempo_continuo, error_y_lagrange, label='Error relativo y', color='red')
+plt.plot(tiempo_continuo, error_x_lagrange, label='Error absoluto x', color='blue')
+plt.plot(tiempo_continuo, error_y_lagrange, label='Error absoluto y', color='red')
 plt.xlabel('Tiempo')
-plt.ylabel('Error relativo')
-plt.title('Error relativo en la interpolación')
+plt.ylabel('Error absoluto')
+plt.title('Error absoluto en la interpolación con Lagrange')
 plt.legend()
 plt.grid(True)
 plt.show()
