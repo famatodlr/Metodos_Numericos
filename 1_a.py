@@ -22,6 +22,9 @@ n_interpolation_points = 10
 x_interpolation = np.linspace(a, b, n_interpolation_points)
 y_interpolation = fa(x_interpolation)
 
+#interpolacion lineal
+linear_interpolation = np.interp(x_values, x_interpolation, y_interpolation)
+
 
 # Interpolación de Lagrange
 lagrange_poly = lagrange(x_interpolation, y_interpolation)
@@ -34,54 +37,10 @@ y_spline = spline(x_values)
 # Errores absolutos
 error_lagrange = np.abs(y_values - y_lagrange)
 error_spline = np.abs((y_values - y_spline))
+error_linear = np.abs((y_values - linear_interpolation))
 
-# Graficar
-def graficos():
-    plt.figure(figsize=(12, 6))
+    
 
-    # Función original y Lagrage
-    plt.subplot(2, 2, 1)
-    plt.plot(x_values, y_values, label='fa(x)', color='blue')
-    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
-    plt.plot(x_values, y_lagrange, label='Interpolación de Lagrange', linestyle='--', color='red')
-    plt.title('Comparación entre fa(x), Interpolación de Lagrange')
-    plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('fa(x)', fontweight='bold', loc='top')
-    plt.legend()
-    plt.grid(True)
-
-
-    # Error absoluto de Lagrange
-    plt.subplot(2, 2, 2)
-    plt.plot(x_values, error_lagrange, label='Error absoluto de Lagrange', color='red')
-    plt.title('Error absoluto de Lagrange')
-    plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
-    plt.legend()
-    plt.grid(True)
-
-    # Función original y Spline
-    plt.subplot(2, 2, 3)
-    plt.plot(x_values, y_spline, label='Polinomio cúbico spline', linestyle='-.', color='green')
-    plt.plot(x_values, y_values, label='fa(x)', color='blue')
-    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
-    plt.title('Comparación entre fa(x) y Polinomi cúbico spline')
-    plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('fa(x)', fontweight='bold', loc='top')
-    plt.legend()
-    plt.grid(True)
-
-    #Error absoluto de Spline
-    plt.subplot(2, 2, 4)
-    plt.title('Error absoluto de Spline')
-    plt.plot(x_values, error_spline, label='Error absoluto del polinomio cúbico spline', color='green')
-    plt.xlabel('x', fontweight='bold', loc='right')
-    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
-    plt.legend()
-    plt.grid(True)
-
-    plt.tight_layout()
-    plt.show()
 
 def get_chevichev_roots(n, a, b) -> list[int]:
     """
@@ -108,6 +67,105 @@ y_spline_no_equispaciados = spline_no_equispaciados(x_values)
 error_lagrange_no_equispaciados = np.abs((y_values - y_lagrange_no_equispaciados))
 error_spline_no_equispaciados = np.abs((y_values - y_spline_no_equispaciados))
 
+def grafico_lagrange():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_lagrange, label='Interpolación de Lagrange', linestyle='--', color='red')
+    plt.title('Comparación entre fa(x) y la interpolación de Lagrange con puntos equiespaciados')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('fa(x)', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def grafico_lagrange_no_equispaciados():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_no_equispaciados, y_no_equispaciados, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_lagrange_no_equispaciados, label='Interpolación de Lagrange', linestyle='--', color='red')
+    plt.title('Comparación entre fa(x) y la interpolación de Lagrange con puntos no equiespaciados')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('fa(x)', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def comparacion_errores_lagrange():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, error_lagrange, label='Error absoluto de Lagrange', color='red')
+    plt.plot(x_values, error_lagrange_no_equispaciados, label='Error absoluto de Lagrange con puntos no equiespaciados', color='green')
+    plt.title('Error absoluto de Lagrange')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def grafico_spline():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_spline, label='Polinomio cúbico spline', linestyle='-.', color='green')
+    plt.title('Comparación entre fa(x) y el polinomio cúbico spline')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('fa(x)', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def grafico_spline_no_equispaciados():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_no_equispaciados, y_no_equispaciados, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_spline_no_equispaciados, label='Polinomio cúbico spline', linestyle='-.', color='green')
+    plt.title('Comparación entre fa(x) y el polinomio cúbico spline con puntos no equiespaciados')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('fa(x)', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def comparacion_errores_spline():
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, error_spline, label='Error absoluto del polinomio cúbico', color='green')
+    plt.plot(x_values, error_spline_no_equispaciados, label='Error absoluto del polinomio cúbico con puntos no equiespaciados', color='red')
+    plt.title('Error absoluto del polinomio cúbico spline')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()   
+    
+
+
+
+
+def graficos():
+# Graficar en un mismo gráfico la función fa(x), la interpolación de Lagrange y el polinomio cúbico spline y la interpolacion lineal
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, y_values, label='fa(x)', color='blue')
+    plt.scatter(x_interpolation, y_interpolation, label='Puntos de interpolación', color='black')
+    plt.plot(x_values, y_spline, label='Polinomio cúbico spline', linestyle='-.', color='green')
+    plt.plot(x_values, linear_interpolation, label='Interpolación lineal', linestyle=':', color='orange')
+    plt.title('Comparación entre fa(x), Interpolación Lineal y Polinomio cúbico spline')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('y', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # Graficar el error absoluto de la interpolación de Lagrange y el polinomio cúbico spline
+    plt.figure(figsize=(12, 6))
+    plt.plot(x_values, error_lagrange, label='Error absoluto de Lagrange', color='red')
+    plt.plot(x_values, error_spline, label='Error absoluto del polinomio cúbico', color='green')
+    plt.title('Error absoluto de Lagrange y Spline')
+    plt.xlabel('x', fontweight='bold', loc='right')
+    plt.ylabel('Error absoluto', fontweight='bold', loc='top')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 def graficos_no_equispaciados():
     plt.figure(figsize=(12, 6))
 
@@ -116,7 +174,7 @@ def graficos_no_equispaciados():
     plt.plot(x_values, y_values, label='fa(x)', color='blue')
     plt.scatter(x_no_equispaciados, y_no_equispaciados, label='Puntos de interpolación', color='black')
     plt.plot(x_values, y_lagrange_no_equispaciados, label='Interpolación de Lagrange', linestyle='--', color='red')
-    plt.title('Comparación entre fa(x), Interpolación de Lagrange')
+    plt.title('Comparación entre fa(x), Interpolación de Lagrange con Puntos no equiespaciados')
     plt.xlabel('x', fontweight='bold', loc='right')
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
@@ -155,5 +213,10 @@ def graficos_no_equispaciados():
     plt.tight_layout()
     plt.show()
 
-graficos()
-graficos_no_equispaciados()
+
+# grafico_lagrange()
+# grafico_lagrange_no_equispaciados()
+# comparacion_errores_lagrange()
+grafico_spline()
+grafico_spline_no_equispaciados()
+comparacion_errores_spline()
