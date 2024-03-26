@@ -49,17 +49,15 @@ def funcion(t1, t2):
     return np.array([interpA_x(t1) - interpB_x(t2), interpA_y(t1) - interpB_y(t2)])
     
 
-def newton_raphson(P0, f = funcion, jac = jac, tol=1e-20, max_iter=100):
+def newton_raphson(P0, f = funcion, jac = jac, tol=1e-6, max_iter=100):
     P = P0
-    iter = 0
     for _ in range(max_iter):
         #calcular la inversa del jacobiano
         J_inv = np.linalg.inv(jac(P[0], P[1]))
         F = f(P[0], P[1])
         P = P - J_inv @ F
         if np.linalg.norm(F) < tol:
-            iter = _
-            print(f'Iteración {iter}: {P}')
+            print(f'Iteraciones: {_}')
             return P
         
     return P
@@ -69,6 +67,8 @@ punto_cruce = newton_raphson(P0)
 
 r_x = interpA_x(punto_cruce[0])
 r_y = interpA_y(punto_cruce[0])
+
+print(f'Punto de cruce: ({punto_cruce[0]}, {punto_cruce[1]})')
 
 
 plt.figure(figsize=(12, 8))  # Ajustar el tamaño del gráfico
