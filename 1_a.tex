@@ -1,0 +1,132 @@
+\subsection{Método de Newton-Raphson}
+El método de Newton-Raphson es un método iterativo para encontrar raíces de una función real. Dada una función $f(x)$, el método de Newton-Raphson encuentra una aproximación a la raíz de $f(x)$ mediante la siguiente fórmula de recurrencia:
+\begin{equation}
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\end{equation}
+donde $x_n$ es la aproximación a la raíz en la n-ésima iteración. La fórmula de recurrencia se obtiene a partir de la aproximación de Taylor de primer orden de $f(x)$ alrededor de $x_n$:
+\begin{equation}
+    f(x) \approx f(x_n) + f'(x_n)(x - x_n)
+\end{equation}
+Igualando la ecuación (2) a cero, se obtiene la ecuación (1).\\
+El método de Newton-Raphson converge a la raíz de $f(x)$ si la derivada de $f(x)$ no se anula en la raíz y si la aproximación inicial $x_0$ está suficientemente cerca de la raíz.\\
+El método de Newton-Raphson es muy eficiente y converge rápidamente a la raíz de $f(x)$ si se cumplen las condiciones de convergencia. Sin embargo, el método de Newton-Raphson puede no converger si la derivada de $f(x)$ se anula en la raíz o si la aproximación inicial $x_0$ está lejos de la raíz. En estos casos, el método de Newton-Raphson puede diverger y no encontrar la raíz de $f(x)$.\\
+
+\subsection{Ejercicio 1.a}
+En el ejercicio 1.a se pide estudiar el desempenio de distintos esquemas de iterpolacion en la funcion $f(x) = 
+
+\begin{equation}
+    f(x) = 0.3^{|x|} \cdot \sin(4x) - \tanh(2x) + 2
+\end{equation}
+
+en el intervalo $x \in [-4, 4]$.
+
+Para ello, se implementaron los siguientes esquemas de interpolación:
+\begin{itemize}
+    \item Interpolación lineal
+    \item Interpolación de Lagrange
+    \item Interpolación con Splines cúbicos
+\end{itemize}
+
+En el caso de la interpolación lineal, se utilizó la función \texttt{numpy.interp} de la librería NumPy para interpolar la función $f(x)$ en el intervalo $x \in [-4, 4]$. La función \texttt{numpy.interp} interpola la función $f(x)$ en un conjunto de puntos $x_i$ mediante interpolación lineal.\\
+En el caso de la interpolación de Lagrange, se utilizó la función \texttt{scipy.interpolate.lagrange} de la librería SciPy para interpolar la función $f(x)$ en el intervalo $x \in [-4, 4]$. La función \texttt{scipy.interpolate.lagrange} interpola la función $f(x)$ en un conjunto de puntos $x_i$ mediante interpolación de Lagrange.\\
+En el caso de la interpolación con Splines cúbicos, se utilizó la función \texttt{scipy.interpolate.CubicSpline} de la librería SciPy para interpolar la función $f(x)$ en el intervalo $x \in [-4, 4]$. La función \texttt{scipy.interpolate.CubicSpline} interpola la función $f(x)$ en un conjunto de puntos $x_i$ mediante Splines cúbicos.\\
+Para cada esquema de interpolación, se calcularon los errores de interpolación en el intervalo $x \in [-4, 4]$ y se compararon los resultados obtenidos.\\
+
+\subsection{Resultados 1.a con puntos equispaciados}
+Los resultados obtenidos en el ejercicio 1.a con puntos equispaciados se muestran en la Figura 1. En la Figura 1 se muestran las funciones $f(x)$ y las funciones interpoladas mediante interpolación lineal, interpolación de Lagrange e interpolación con Splines cúbicos en el intervalo $x \in [-4, 4]$.\\
+//INSERTAR FIGURA 1\\
+En la Figura 1 se observa que las funciones interpoladas mediante interpolación lineal, interpolación de Lagrange e interpolación con Splines cúbicos se ajustan bien a la función $f(x)$ en el intervalo $x \in [-4, 4]$. Sin embargo, se observa que la interpolación con Splines cúbicos se ajusta mejor a la función $f(x)$ que la interpolación lineal y la interpolación de Lagrange.\\
+Para evaluar el desempeño de los distintos esquemas de interpolación, se calcularon los errores de interpolación en el intervalo $x \in [-4, 4]$. Los errores de interpolación se calcularon como la diferencia entre la función $f(x)$ y la función interpolada en el intervalo $x \in [-4, 4]$. Los errores de interpolación se muestran en la Figura 2.\\
+//INSERTAR FIGURA 2\\
+En la Figura 2 se observa que los errores de interpolación son menores en la interpolación con Splines cúbicos que en la interpolación lineal y la interpolación de Lagrange. Esto indica que la interpolación con Splines cúbicos se ajusta mejor a la función $f(x)$ que la interpolación lineal y la interpolación de Lagrange en el intervalo $x \in [-4, 4]$.\\
+
+\subsection{Resultados 1.a con puntos no equispaciados}
+Los resultados obtenidos en el ejercicio 1.a con puntos no equispaciados se muestran en la Figura 3. En la Figura 3 se muestran las funciones $f(x)$ y las funciones interpoladas mediante interpolación lineal, interpolación de Lagrange e interpolación con Splines cúbicos en el intervalo $x \in [-4, 4]$. utilizando las raices de Chevichev para utilizar puntos no equispaciados\\
+//INSERTAR FIGURA 3\\
+En la Figura 3 se observa que las funciones interpoladas mediante interpolación lineal, interpolación de Lagrange e interpolación con Splines cúbicos se ajustan bien a la función $f(x)$ en el intervalo $x \in [-4, 4]$. Sin embargo, se observa que la interpolación con Splines cúbicos se ajusta mejor a la función $f(x)$ que la interpolación lineal y la interpolación de Lagrange.\\
+Para evaluar el desempeño de los distintos esquemas de interpolación, se calcularon los errores de interpolación en el intervalo $x \in [-4, 4]$. Los errores de interpolación se calcularon como la diferencia entre la función $f(x)$ y la función interpolada en el intervalo $x \in [-4, 4]$. Los errores de interpolación se muestran en la Figura 4.\\
+//INSERTAR FIGURA 4\\
+En la Figura 4 se observa que los errores de interpolación son menores en la interpolación con Splines cúbicos que en la interpolación lineal y la interpolación de Lagrange. Esto indica que la interpolación con Splines cúbicos se ajusta mejor a la función $f(x)$ que la interpolación lineal y la interpolación de Lagrange en el intervalo $x \in [-4, 4]$.\\
+
+\subsection{Ejercicio 1.b}
+En el ejercicio 1.b se pide estudiar el desempenio de distintos esquemas de interpolación en la siguiente función:
+
+\begin{equation}
+    \begin{aligned}
+    f(\textbf{x}) =&0.75 \cdot \exp\left(-\frac{(10x_1 - 2)^2}{4} - \frac{(9x_2 - 2)^2}{4}\right) \\
+    & + 0.65 \cdot \exp\left(-\frac{(9x_1 + 1)^2}{9} - \frac{(10x_2 + 1)^2}{2}\right) \\
+    & + 0.55 \cdot \exp\left(-\frac{(9x_1 - 6)^2}{4} - \frac{(9x_2 - 3)^2}{4}\right) \\
+    & - 0.01 \cdot \exp\left(-\frac{(9x_1 - 7)^2}{4} - \frac{(9x_2 - 7)^2}{4}\right)
+    \end{aligned}
+    \end{equation}
+
+en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.
+
+Para ello, se implementó la función $f(\textbf{x})$ en Python y se utilizó la función \texttt{scipy.interpolate.griddata} de la librería SciPy para interpolar la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. 
+La función \texttt{scipy.interpolate.griddata} interpola la función $f(\textbf{x})$ en un conjunto de puntos $\textbf{x}_i$ mediante interpolación con Splines cúbicos.\\
+Para evaluar el desempeño de la interpolación, se calcularon los errores de interpolación en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Los errores de interpolación se calcularon como la diferencia entre la función $f(\textbf{x})$ y la función interpolada en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+
+\subsection{Resultados 1.b con puntos equispaciados}
+Los resultados obtenidos en el ejercicio 1.b con puntos equispaciados se muestran en la Figura 5. En la Figura 5 se muestra la función $f(\textbf{x})$ y la función interpolada mediante interpolación con Splines cúbicos en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+//INSERTAR FIGURA 5\\
+En la Figura 5 se observa que la función interpolada mediante interpolación con Splines cúbicos se ajusta bien a la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+Para evaluar el desempeño de la interpolación, se calcularon los errores de interpolación en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Los errores de interpolación se calcularon como la diferencia entre la función $f(\textbf{x})$ y la función interpolada en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Los errores de interpolación se muestran en la Figura 6.\\
+//INSERTAR FIGURA 6\\
+En la Figura 6 se observa que los errores de interpolación son menores en la interpolación con Splines cúbicos que en la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Esto indica que la interpolación con Splines cúbicos se ajusta bien a la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+
+\subsection{Resultados 1.b con puntos no equispaciados}
+Los resultados obtenidos en el ejercicio 1.b con puntos no equispaciados se muestran en la Figura 7. En la Figura 7 se muestra la función $f(\textbf{x})$ y la función interpolada mediante interpolación con Splines cúbicos en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. utilizando las raices de Chevichev para utilizar puntos no equispaciados\\
+//INSERTAR FIGURA 7\\
+En la Figura 7 se observa que la función interpolada mediante interpolación con Splines cúbicos se ajusta bien a la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+Para evaluar el desempeño de la interpolación, se calcularon los errores de interpolación en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Los errores de interpolación se calcularon como la diferencia entre la función $f(\textbf{x})$ y la función interpolada en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Los errores de interpolación se muestran en la Figura 8.\\
+//INSERTAR FIGURA 8\\
+En la Figura 8 se observa que los errores de interpolación son menores en la interpolación con Splines cúbicos que en la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$. Esto indica que la interpolación con Splines cúbicos se ajusta bien a la función $f(\textbf{x})$ en el intervalo $x_1 \in [-1, 1]$ y $x_2 \in [-1, 1]$.\\
+
+
+\subsection{Ejercicio 2.a}
+En el ejercicio 2, la modalidad de evaluación de metodos de interpolacion cambia. En este caso, se pide evaluar el desempenio de distintos esquemas de interpolación para recuperar la trayectoria de un vehículo autonomo dados los siguientes datos:
+\begin{itemize}
+    \item Posiciones del vehículo (en coordenadas cartesianas)
+    \item Trayectoria real del vehículo (en coordenadas cartesianas)
+\end{itemize}
+Para ello, se implementaron los siguientes esquemas de interpolación:
+\begin{itemize}
+    \item Interpolación lineal
+    \item Interpolación de Lagrange
+    \item Interpolación con Splines cúbicos
+\end{itemize}
+En el caso de la interpolación lineal, se utilizó la función \texttt{numpy.interp} de la librería NumPy para interpolar la trayectoria del vehículo en el intervalo de tiempo $t \in [0, 10]$. La función \texttt{numpy.interp} interpola la trayectoria del vehículo en un conjunto de puntos $t_i$ mediante interpolación lineal.\\
+En el caso de la interpolación de Lagrange, se utilizó la función \texttt{scipy.interpolate.lagrange} de la librería SciPy para interpolar la trayectoria del vehículo en el intervalo de tiempo $t \in [0, 10]$. La función \texttt{scipy.interpolate.lagrange} interpola la trayectoria del vehículo en un conjunto de puntos $t_i$ mediante interpolación de Lagrange.\\
+En el caso de la interpolación con Splines cúbicos, se utilizó la función \texttt{scipy.interpolate.CubicSpline} de la librería SciPy para interpolar la trayectoria del vehículo en el intervalo de tiempo $t \in [0, 10]$. La función \texttt{scipy.interpolate.CubicSpline} interpola la trayectoria del vehículo en un conjunto de puntos $t_i$ mediante Splines cúbicos.\\
+Para cada esquema de interpolación, se calcularon los errores de interpolación en el intervalo de tiempo $t \in [0, 10]$ y se compararon los resultados obtenidos.\\
+
+\subsection{Resultados 2.a}
+Los resultados obtenidos en el ejercicio 2.a se muestran en la Figura 9. En la Figura 9 se muestran la trayectoria real, la trayectoria interpolada mediante interpolación lineal, la trayectoria interpolada mediante interpolación de Lagrange y la trayectoria interpolada mediante interpolación con Splines cúbicos.\\
+//INSERTAR FIGURA 9\\
+En la Figura 9 se observa que las trayectorias interpoladas mediante interpolación de Lagrange e interpolación con Splines cúbicos se ajustan bien a la trayectoria real. Sin embargo, se observa que la interpolación con Splines cúbicos se ajusta mejor a la trayectoria real que la interpolación lineal y la interpolación de Lagrange.\\
+Para evaluar el desempeño de los distintos esquemas de interpolación, se calcularon los errores de interpolación en cada una de las coordenadas (x, y). Los errores de interpolación se calcularon como la diferencia entre la trayectoria real y la trayectoria interpolada. Los errores de interpolación se muestran en la Figura 10.\\
+//INSERTAR FIGURA 10\\
+En la Figura 10 se observa que los errores de interpolación son menores en la interpolación con Splines cúbicos que en la interpolación lineal y la interpolación de Lagrange. Esto indica que la interpolación con Splines cúbicos se ajusta mejor a la trayectoria real que la interpolación lineal y la interpolación de Lagrange.\\
+
+
+\subsection{Ejercicio 2.b}
+En el ejercicio 2.b se pide aproximar la trayectoria de un segundo vehículo, dadas 4 posiciones del vehículo. Luego de obtener la trayectoria aproximada, se pide calcular con métodos numéricos la  coordenadas el primer vehículo atraviesa la trayectoria del segundo vehículo.\\
+La metodología para resolver este problema es la siguiente:
+\begin{itemize}
+    \item Se obtiene la trayectoria del segundo vehículo mediante interpolación con Splines cúbicos.
+    \item Se calcula la intersección de la trayectoria del primer vehículo con la trayectoria del segundo vehículo utilizando el método de Newton-Raphson para encontrar raíces de una función real de dos variables.
+\end{itemize}
+
+\subsection{Resultados 2.b}
+Los resultados obtenidos en el ejercicio 2.b se muestran en la Figura 11. En la Figura 11 se muestra la trayectoria real del primer vehículo, la trayectoria interpolada del segundo vehículo mediante interpolación con Splines cúbicos y el punto de intersección de las trayectorias del primer y segundo vehículo.\\
+//INSERTAR FIGURA 11\\
+En la Figura 11 se observa que la trayectoria interpolada del segundo vehículo se ajusta bien a las posiciones del segundo vehículo. Además, se observa que el punto de intersección de las trayectorias del primer y segundo vehículo se encuentra en la intersección de las trayectorias interpoladas.\\
+Para evaluar el desempeño de la interpolación y el cálculo de la intersección, se calculó el error de intersección considerando la cantidad de iteraciones y la tolerancia del método de Newton-Raphson. Cabe aclarar, que el error de intersección no es posible de calcular dado que se desconoce la trayectoria real del segundo vehículo. El error de intersección se muestra en la Figura 12.\\
+//INSERTAR FIGURA 12\\
+En la Figura 12 se observa que el método de Newton-Raphson converge a la intersección de las trayectorias del primer y segundo vehículo en pocas iteraciones y con una tolerancia baja. Esto indica que el método de Newton-Raphson es eficiente para encontrar la intersección de las trayectorias del primer y segundo vehículo.\\
+
+\section{Conclusiones}
+En este trabajo se estudió el desempenio de distintos esquemas de interpolación para recuperar la trayectoria de un vehículo autónomo y para aproximar la trayectoria de un segundo vehículo. Se implementaron los esquemas de interpolación lineal, interpolación de Lagrange e interpolación con Splines cúbicos y se compararon los resultados obtenidos.\\
+En el ejercicio 1, se observó que la interpolación con Splines cúbicos se ajusta mejor a la función $f(x)$ y a la función $f(\textbf{x})$ que la interpolación lineal y la interpolación de Lagrange. En el ejercicio 2, se observó que la interpolación con Splines cúbicos se ajusta mejor a la trayectoria real del vehículo y a la trayectoria interpolada del segundo vehículo que la interpolación lineal y la interpolación de Lagrange.\\
+En el ejercicio 2.b, se observó que el método de Newton-Raphson converge a la intersección de las trayectorias del primer y segundo vehículo en pocas iteraciones y con una tolerancia baja. Esto indica que el método de Newton-Raphson es eficiente para encontrar la intersección de las trayectorias del primer y segundo vehículo.\\
+En conclusión, se observó que el desempeño de los distintos esquemas de interpolación depende de la función a interpolar y de la cantidad de puntos de interpolación. En general, la interpolación con Splines cúbicos se ajusta mejor a las funciones y trayectorias reales que la interpolación lineal y la interpolación de Lagrange. Además, es pertinente el comentario de lo dificil que se puede tornar llevar toda esta teoria a un plano practico como en el ejericcio 2.
