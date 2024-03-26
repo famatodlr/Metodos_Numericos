@@ -42,31 +42,6 @@ y_interpolado = interp_y(tiempo_continuo)
 error_x = np.abs(x_interpolado - x_gt)
 error_y = np.abs(y_interpolado - y_gt)
 
-# Comparar trayectorias
-plt.figure(figsize=(10, 6))
-plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
-plt.plot(x_interpolado, y_interpolado, label='Interpolated', linestyle='--', color='red')
-plt.scatter(x, y, label='Puntos de interpolación', color='green', alpha=0.5)
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Comparación de Trayectorias con Splines Cúbicos')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-
-# Graficar el error absoluto
-plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x, label='Error absoluto x', color='blue')
-plt.plot(tiempo_continuo, error_y, label='Error absoluto y', color='red')
-plt.xlabel('Tiempo')
-plt.ylabel('Error absoluto')
-plt.yscale('log')
-plt.title('Error absoluto en la interpolación con Splines Cúbicos')
-plt.legend()
-plt.grid(True)
-plt.show()
-
 # Interpolar las posiciones con el metodo de lagrange
 interp_x_lagrange = lagrange(tiempo, x)
 interp_y_lagrange = lagrange(tiempo, y)
@@ -79,26 +54,35 @@ y_interpolado_lagrange = interp_y_lagrange(tiempo_continuo)
 error_x_lagrange = np.abs(x_interpolado_lagrange - x_gt)
 error_y_lagrange = np.abs(y_interpolado_lagrange - y_gt)
 
+
 # Comparar trayectorias
 plt.figure(figsize=(10, 6))
 plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
-plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolación de Lagrange', linestyle='--', color='red')
+plt.plot(x_interpolado, y_interpolado, label='Interpolated', linestyle='--', color='red')
+plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolación de Lagrange', linestyle='-.', color='orange')
 plt.scatter(x, y, label='Puntos de interpolación', color='green', alpha=0.5)
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Comparación de Trayectorias con Lagrange')
+plt.title('Comparación de Trayectorias')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Graficar el error absoluto
+# graficar todas las interpolaciones en uno solo
+# teniendo el error en x y y, grafico la norma del error
+
+#resto el ground truth con la interpolación de lagrange
+error_lagrange = np.sqrt(error_x_lagrange**2 + error_y_lagrange**2)
+error_spline = np.sqrt(error_x**2 + error_y**2)
+
 plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_x_lagrange, label='Error absoluto x', color='blue')
-plt.plot(tiempo_continuo, error_y_lagrange, label='Error absoluto y', color='red')
+plt.plot(tiempo_continuo, error_lagrange, label='Error absoluto de Lagrange', color='blue')
+plt.plot(tiempo_continuo, error_spline, label='Error absoluto de Spline', color='red')
 plt.xlabel('Tiempo')
 plt.ylabel('Error absoluto')
-plt.yscale('log')
-plt.title('Error absoluto en la interpolación con Lagrange')
+plt.yscale('symlog')
+plt.title('Error absoluto en la interpolación con Lagrange y Spline')
 plt.legend()
 plt.grid(True)
 plt.show()
+

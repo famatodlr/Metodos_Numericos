@@ -214,9 +214,9 @@ def graficos_no_equispaciados():
     plt.show()
 
 
-# grafico_lagrange()
-# grafico_lagrange_no_equispaciados()
-# comparacion_errores_lagrange()
+grafico_lagrange()
+grafico_lagrange_no_equispaciados()
+comparacion_errores_lagrange()
 grafico_spline()
 grafico_spline_no_equispaciados()
 comparacion_errores_spline()
