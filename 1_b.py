@@ -49,9 +49,6 @@ ax.set_ylabel('x2')
 ax.set_zlabel('f(x1, x2)')
 ax.view_init(30, 30)
 
-# graficar los puntos de interpolación
-ax.scatter(X1_int, X2_int, function(X1_int, X2_int), color='red')
-
 ax = fig.add_subplot(122, projection='3d')
 ax.plot_surface(X1, X2, interpolated_points, cmap='viridis')
 ax.set_title('Interpolación')
@@ -62,7 +59,7 @@ plt.show()
 
 # Graficar el error absoluto en heatmap 
 plt.figure(figsize=(12, 6))
-plt.imshow(error, cmap='hot', extent=[a, b, a, b])
+plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
 plt.colorbar()
 plt.title('Error absoluto')
 plt.xlabel('x1')
@@ -107,9 +104,6 @@ ax.set_ylabel('x2')
 ax.set_zlabel('f(x1, x2)')
 ax.view_init(30, 30)
 
-# graficar los puntos de interpolación
-ax.scatter(X1_int, X2_int, function(X1_int, X2_int), color='red')
-
 ax = fig.add_subplot(122, projection='3d')
 ax.plot_surface(X1, X2, interpolated_points, cmap='viridis')
 ax.set_title('Interpolación')
@@ -120,7 +114,7 @@ plt.show()
 
 # Graficar el error absoluto en heatmap
 plt.figure(figsize=(12, 6))
-plt.imshow(error, cmap='hot', extent=[a, b, a, b])
+plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
 plt.colorbar()
 plt.title('Error absoluto')
 plt.xlabel('x1')
