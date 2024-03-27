@@ -68,29 +68,35 @@ punto_cruce = newton_raphson(P0)
 r_x = interpA_x(punto_cruce[0])
 r_y = interpA_y(punto_cruce[0])
 
+#calculo del error en la interseccion
+error = np.linalg.norm(funcion(punto_cruce[0], punto_cruce[1]))
+print(f'Error en la intersección: {error}')
 print(f'Punto de cruce: ({punto_cruce[0]}, {punto_cruce[1]})')
 
+def grafico1():
+    plt.figure(figsize=(12, 8))  # Ajustar el tamaño del gráfico
+    plt.scatter(r_x, r_y,  color='green', s=100, marker='o')  # Aumentar el tamaño del marcador y especificar el tipo de marcador
+    plt.plot(xA_interpolado, yA_interpolado, label='Trayectoria A', color='blue')
+    plt.plot(xB_graficar, yB_graficar, label='Trayectoria B', color='red')
+    plt.scatter(xA, yA, color='blue', alpha=0.5)
+    plt.scatter(xB, yB, color='red', alpha=0.5)
+    plt.scatter(r_x, r_y, color='green', s=100, marker='o')
+    plt.xlabel('X1', fontsize=14)  # Aumentar el tamaño de la fuente de la etiqueta X
+    plt.ylabel('X2', fontsize=14)  # Aumentar el tamaño de la fuente de la etiqueta Y
+    plt.title('Intersección de Trayectorias A y B', fontsize=16)  # Aumentar el tamaño de la fuente del título
+    plt.legend(fontsize=12)  # Aumentar el tamaño de la fuente de la leyenda
+    plt.grid(True, linestyle='--', alpha=0.7)  # Mejorar el estilo de la cuadrícula
+    plt.gca().spines['top'].set_linewidth(0.5)  # Añadir un borde alrededor del área de trazado
+    plt.gca().spines['bottom'].set_linewidth(0.5)
+    plt.gca().spines['left'].set_linewidth(0.5)
+    plt.gca().spines['right'].set_linewidth(0.5)
+    #agrega a la escala de los ejes el punto exacto de la interseccion
+    plt.xticks(list(plt.xticks()[0]) + [r_x])
+    plt.yticks(list(plt.yticks()[0]) + [r_y])
+    plt.gca().set_facecolor('#f0f0f0')  # Añadir un fondo más agradable
 
-plt.figure(figsize=(12, 8))  # Ajustar el tamaño del gráfico
+    plt.show()
 
-plt.scatter(r_x, r_y,  color='green', s=100, marker='o')  # Aumentar el tamaño del marcador y especificar el tipo de marcador
-plt.plot(xA_interpolado, yA_interpolado, label='Funcion A', color='blue')
-plt.plot(xB_graficar, yB_graficar, label='Funcion B', color='red')
-plt.scatter(xA, yA, color='blue', alpha=0.5)
-plt.scatter(xB, yB, color='red', alpha=0.5)
-plt.scatter(r_x, r_y, color='green', s=100, marker='o')
-plt.xlabel('X1', fontsize=14)  # Aumentar el tamaño de la fuente de la etiqueta X
-plt.ylabel('X2', fontsize=14)  # Aumentar el tamaño de la fuente de la etiqueta Y
-plt.title('Intersección de Trayectorias A y B', fontsize=16)  # Aumentar el tamaño de la fuente del título
-plt.legend(fontsize=12)  # Aumentar el tamaño de la fuente de la leyenda
-plt.grid(True, linestyle='--', alpha=0.7)  # Mejorar el estilo de la cuadrícula
-plt.gca().spines['top'].set_linewidth(0.5)  # Añadir un borde alrededor del área de trazado
-plt.gca().spines['bottom'].set_linewidth(0.5)
-plt.gca().spines['left'].set_linewidth(0.5)
-plt.gca().spines['right'].set_linewidth(0.5)
-#agrega a la escala de los ejes el punto exacto de la interseccion
-plt.xticks(list(plt.xticks()[0]) + [r_x])
-plt.yticks(list(plt.yticks()[0]) + [r_y])
-plt.gca().set_facecolor('#f0f0f0')  # Añadir un fondo más agradable
 
-plt.show()
+# grafico1()
+

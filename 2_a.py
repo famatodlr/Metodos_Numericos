@@ -54,35 +54,70 @@ y_interpolado_lagrange = interp_y_lagrange(tiempo_continuo)
 error_x_lagrange = np.abs(x_interpolado_lagrange - x_gt)
 error_y_lagrange = np.abs(y_interpolado_lagrange - y_gt)
 
-
-# Comparar trayectorias
-plt.figure(figsize=(10, 6))
-plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
-plt.plot(x_interpolado, y_interpolado, label='Interpolated', linestyle='--', color='red')
-plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolación de Lagrange', linestyle='-.', color='orange')
-plt.scatter(x, y, label='Puntos de interpolación', color='green', alpha=0.5)
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Comparación de Trayectorias')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# graficar todas las interpolaciones en uno solo
-# teniendo el error en x y y, grafico la norma del error
-
-#resto el ground truth con la interpolación de lagrange
 error_lagrange = np.sqrt(error_x_lagrange**2 + error_y_lagrange**2)
 error_spline = np.sqrt(error_x**2 + error_y**2)
 
-plt.figure(figsize=(10, 6))
-plt.plot(tiempo_continuo, error_lagrange, label='Error absoluto de Lagrange', color='blue')
-plt.plot(tiempo_continuo, error_spline, label='Error absoluto de Spline', color='red')
-plt.xlabel('Tiempo')
-plt.ylabel('Error absoluto')
-plt.yscale('symlog')
-plt.title('Error absoluto en la interpolación con Lagrange y Spline')
-plt.legend()
-plt.grid(True)
-plt.show()
+# Comparar trayectorias
+def grafico1():
 
+    plt.figure(figsize=(12, 8))  # Ajustar el tamaño de la figura
+
+    # Plot de las funciones y puntos de interpolación
+    plt.plot(x_gt, y_gt, label='Ground Truth', color='blue')
+    plt.plot(x_interpolado, y_interpolado, label='Interpolación con Splines Cúbicos', linestyle='--', color='red')
+    plt.plot(x_interpolado_lagrange, y_interpolado_lagrange, label='Interpolación de Lagrange', linestyle='-.', color='orange')
+    plt.scatter(x, y, label='Puntos de interpolación', color='green', alpha=0.7, s=50)
+
+    # Etiquetas de los ejes y título
+    plt.xlabel('x', fontsize=14)
+    plt.ylabel('y', fontsize=14)
+    plt.title('Comparación de Trayectorias', fontsize=16)
+
+    # Leyenda
+    plt.legend(fontsize=12)
+
+    # Cuadrícula
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Ajustes adicionales
+    plt.gca().spines['top'].set_linewidth(0.5)  # Añadir un borde alrededor del área de trazado
+    plt.gca().spines['bottom'].set_linewidth(0.5)
+    plt.gca().spines['left'].set_linewidth(0.5)
+    plt.gca().spines['right'].set_linewidth(0.5)
+
+    plt.show()
+
+def grafico2():
+        
+    plt.figure(figsize=(12, 8))  # Ajustar el tamaño de la figura
+
+    # Gráfico de error absoluto de Lagrange y Spline
+    plt.plot(tiempo_continuo, error_lagrange, label='Error absoluto de Lagrange', color='blue')
+    plt.plot(tiempo_continuo, error_spline, label='Error absoluto de Spline', color='red')
+
+    # Etiquetas de los ejes y título
+    plt.xlabel('Tiempo', fontsize=14)
+    plt.ylabel('Error absoluto', fontsize=14)
+    plt.title('Error absoluto en la Interpolación con Lagrange y Spline', fontsize=16)
+
+    # Escala logarítmica simétrica en el eje y
+    plt.yscale("symlog")
+    #hacer que el eje x sea
+    plt.xscale("linear")
+
+    # Leyenda
+    plt.legend(fontsize=12)
+
+    # Cuadrícula
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Ajustes adicionales
+    plt.gca().spines['top'].set_linewidth(0.5)  # Añadir un borde alrededor del área de trazado
+    plt.gca().spines['bottom'].set_linewidth(0.5)
+    plt.gca().spines['left'].set_linewidth(0.5)
+    plt.gca().spines['right'].set_linewidth(0.5)
+
+    plt.show()
+
+
+grafico2()

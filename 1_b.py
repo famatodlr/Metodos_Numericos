@@ -39,32 +39,8 @@ interpolated_points = griddata(points, values, (X1, X2), method='cubic')
 # Errores absolutos
 error = np.abs(Y - interpolated_points)
 
-# Graficar
-fig = plt.figure(figsize=(12, 6))
-ax = fig.add_subplot(121, projection='3d')
-ax.plot_surface(X1, X2, Y, cmap='viridis')
-ax.set_title('Función original')
-ax.set_xlabel('x1')
-ax.set_ylabel('x2')
-ax.set_zlabel('f(x1, x2)')
-ax.view_init(30, 30)
 
-ax = fig.add_subplot(122, projection='3d')
-ax.plot_surface(X1, X2, interpolated_points, cmap='viridis')
-ax.set_title('Interpolación')
-ax.set_xlabel('x1')
-ax.set_ylabel('x2')
 
-plt.show()
-
-# Graficar el error absoluto en heatmap 
-plt.figure(figsize=(12, 6))
-plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
-plt.colorbar()
-plt.title('Error absoluto')
-plt.xlabel('x1')
-plt.ylabel('x2')
-plt.show()
 
 # Puntos de interpolacion no equispaciados
 
@@ -94,29 +70,99 @@ interpolated_points = griddata(points, values, (X1, X2), method='cubic')
 # Errores absolutos
 error = np.abs(Y - interpolated_points)
 
+def grafico1():
+        
+    fig = plt.figure(figsize=(12, 6))
+    fig.suptitle('Comparación de la función original y la interpolación con puntos equiespaciados')
+    ax = fig.add_subplot(121, projection='3d')
+    ax.plot_surface(X1, X2, Y, cmap='viridis')
+    ax.set_title('Función original')
+
+    ax.set_xlabel('x1')
+    ax.set_ylabel('x2')
+    ax.set_zlabel('f(x1, x2)')
+    #rotar 90 grados a la izquierda
+    ax.view_init(30, -60)
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.zaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+
+
+    ax = fig.add_subplot(122, projection='3d')
+    ax.plot_surface(X1, X2, interpolated_points, cmap='plasma')
+    ax.set_title('Interpolación')
+    ax.set_xlabel('x1')
+    ax.set_ylabel('x2')
+    #hacer que los valores en los ejes tegan solo un decimal
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.zaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+
+
+    plt.show()
+
+def grafico2():
+    # Graficar el error absoluto en heatmap 
+
+    plt.figure(figsize=(12, 8))
+    plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
+    plt.colorbar(label='Error Absoluto')
+    plt.title('Error Absoluto de la Interpolación con Puntos Equiespaciados', fontsize=16)
+    plt.xlabel('x1', fontsize=14)
+    plt.ylabel('x2', fontsize=14)
+    plt.grid(False)  # Desactivar la cuadrícula si no es necesaria
+    plt.show()
 # Graficar
-fig = plt.figure(figsize=(12, 6))
-ax = fig.add_subplot(121, projection='3d')
-ax.plot_surface(X1, X2, Y, cmap='viridis')
-ax.set_title('Función original')
-ax.set_xlabel('x1')
-ax.set_ylabel('x2')
-ax.set_zlabel('f(x1, x2)')
-ax.view_init(30, 30)
+def grafico3():
+        
+    fig = plt.figure(figsize=(12, 6))
+    fig.suptitle('Comparación de la función original y la interpolación con puntos no equiespaciados')
+    ax = fig.add_subplot(121, projection='3d')
+    ax.plot_surface(X1, X2, Y, cmap='viridis')
+    ax.set_title('Función original')
+    ax.set_xlabel('x1')
+    ax.set_ylabel('x2')
+    ax.set_zlabel('f(x1, x2)')
+    ax.view_init(30, -60)
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.zaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
 
-ax = fig.add_subplot(122, projection='3d')
-ax.plot_surface(X1, X2, interpolated_points, cmap='viridis')
-ax.set_title('Interpolación')
-ax.set_xlabel('x1')
-ax.set_ylabel('x2')
+    ax = fig.add_subplot(122, projection='3d')
+    ax.plot_surface(X1, X2, interpolated_points, cmap='plasma')
+    ax.set_title('Interpolación')
+    ax.set_xlabel('x1')
+    ax.set_ylabel('x2')
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
+    ax.zaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: '{:.1f}'.format(x)))
 
-plt.show()
+    plt.show()
+    
 
-# Graficar el error absoluto en heatmap
-plt.figure(figsize=(12, 6))
-plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
-plt.colorbar()
-plt.title('Error absoluto')
-plt.xlabel('x1')
-plt.ylabel('x2')
-plt.show()
+def grafico4():
+    # Graficar el error absoluto en heatmap
+    # plt.title('Error absoluto de la interpolación con puntos no equiespaciados')
+    # plt.figure(figsize=(12, 6))
+    # plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
+    # plt.colorbar()
+    # plt.title('Error absoluto')
+    # plt.xlabel('x1')
+    # plt.ylabel('x2')
+    # plt.show()
+    plt.figure(figsize=(12, 8))  # Ajustar el tamaño de la figura
+
+    # Gráfico de imagen
+    plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
+    plt.colorbar(label='Error Absoluto')  # Añadir barra de color con etiqueta
+
+    # Título y etiquetas de los ejes
+    plt.title('Error Absoluto de la Interpolación con Puntos no Equiespaciados', fontsize=16)
+    plt.xlabel('x1', fontsize=14)
+    plt.ylabel('x2', fontsize=14)
+
+    # Mostrar el gráfico
+    plt.show()
+
+
+grafico4()
