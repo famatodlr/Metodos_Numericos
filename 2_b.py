@@ -71,7 +71,7 @@ r_y = interpA_y(punto_cruce[0])
 #calculo del error en la interseccion
 error = np.linalg.norm(funcion(punto_cruce[0], punto_cruce[1]))
 print(f'Error en la intersección: {error}')
-print(f'Punto de cruce: ({punto_cruce[0]}, {punto_cruce[1]})')
+print(f'Punto de cruce: ({r_x}, {r_y})')
 
 def grafico1():
     plt.figure(figsize=(12, 8))  # Ajustar el tamaño del gráfico

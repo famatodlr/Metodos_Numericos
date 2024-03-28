@@ -18,7 +18,7 @@ x_values = np.linspace(a, b, n_points)
 y_values = fa(x_values)
 
 # Puntos de interpolación
-n_interpolation_points = 10
+n_interpolation_points = 20
 x_interpolation = np.linspace(a, b, n_interpolation_points)
 y_interpolation = fa(x_interpolation)
 
@@ -77,6 +77,7 @@ def grafico_lagrange():
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
+    plt.ylim(0,4)
     plt.show()
 
 def grafico_lagrange_no_equispaciados():
@@ -89,6 +90,7 @@ def grafico_lagrange_no_equispaciados():
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
+    plt.ylim(0,4)
     plt.show()
 
 def comparacion_errores_lagrange():
@@ -100,6 +102,7 @@ def comparacion_errores_lagrange():
     plt.ylabel('Error absoluto', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
+    plt.ylim(0,1)
     plt.show()
 
 def grafico_spline():
@@ -112,6 +115,7 @@ def grafico_spline():
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
+    plt.ylim(0,4)
     plt.show()
 
 def grafico_spline_no_equispaciados():
@@ -124,6 +128,7 @@ def grafico_spline_no_equispaciados():
     plt.ylabel('fa(x)', fontweight='bold', loc='top')
     plt.legend()
     plt.grid(True)
+    plt.ylim(0,4)
     plt.show()
 
 def comparacion_errores_spline():

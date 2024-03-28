@@ -142,27 +142,19 @@ def grafico3():
 
 def grafico4():
     # Graficar el error absoluto en heatmap
-    # plt.title('Error absoluto de la interpolación con puntos no equiespaciados')
-    # plt.figure(figsize=(12, 6))
-    # plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
-    # plt.colorbar()
-    # plt.title('Error absoluto')
-    # plt.xlabel('x1')
-    # plt.ylabel('x2')
-    # plt.show()
-    plt.figure(figsize=(12, 8))  # Ajustar el tamaño de la figura
-
-    # Gráfico de imagen
+    plt.title('Error absoluto de la interpolación con puntos no equiespaciados')
+    plt.figure(figsize=(12, 6))
     plt.imshow(error, cmap='rainbow', extent=[a, b, a, b])
-    plt.colorbar(label='Error Absoluto')  # Añadir barra de color con etiqueta
-
-    # Título y etiquetas de los ejes
-    plt.title('Error Absoluto de la Interpolación con Puntos no Equiespaciados', fontsize=16)
-    plt.xlabel('x1', fontsize=14)
-    plt.ylabel('x2', fontsize=14)
-
+    plt.colorbar()
+    plt.title('Error absoluto')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.show()
+    plt.figure(figsize=(12, 8))  # Ajustar el tamaño de la figura
     # Mostrar el gráfico
     plt.show()
 
-
+grafico1()
+grafico2()
+grafico3()
 grafico4()
