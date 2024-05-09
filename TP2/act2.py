@@ -274,4 +274,4 @@ if __name__ == '__main__':
     # grafico4()
     # grafico5()
     # grafico6()
-    grafico7()
+    # grafico7()
