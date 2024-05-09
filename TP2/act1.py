@@ -116,10 +116,6 @@ plt.title('Error en Runge-Kutta y Euler (Modelo Exponencial)')
 plt.show()
 
 # Error en Runge-Kutta y Euler funcion logistica
-h = 0.1
-n = 100
-t = np.linspace(0, 100, n)
-
 y = f_log(t, N0, K, r)
 y_rk = np.array([runge_kutta(pendiente_log, 0, N0, h, i) for i in range(n)])
 y_euler = np.array([euler(pendiente_log, 0, N0, h, i) for i in range(n)])
