@@ -17,6 +17,9 @@ def pendiente_exp(t, n):
 def pendiente_log(t, n):
     return r * n * (1 - n/K)
 
+
+
+
 # Gráfica
 plt.plot(N, pendiente_exp(0, N), label='Exponencial')
 plt.plot(N, pendiente_log(0, N), label='Logística')
@@ -34,7 +37,10 @@ def f_exp(t, n0, r):
     return n0 * np.exp((r * t))
 
 def f_log(t, n0, K, r):
-    return K / (1 + (K/n0 - 1) * np.exp(-r*t))
+    #https://courses.lumenlearning.com/calculus2/chapter/solving-the-logistic-differential-equation/
+    
+    # return K / (1 + (K/n0 - 1) * np.exp(-r*t))
+    return n0 * K * np.exp(r * t)/ ((K - n0) + n0 * np.exp(-r * t))  
 
 #Grafico de f_exp
 y_exp = f_exp(t, N0, r)
