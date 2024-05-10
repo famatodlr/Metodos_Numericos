@@ -7,7 +7,7 @@ casos = {
         'Caso 2': [100, 100, 2, 0.5],
         'Caso 3': [200, 140, 2.5, 1],
         'Caso 4': [100, 60, 0.2, 0.2]}
-        #'casoX': [K1, K2, a12, a21]        
+        #'Caso X': [K1, K2, a12, a21]        
 
 N1_0 = 30
 N2_0 = 10
@@ -22,14 +22,15 @@ n = 30
 xlim2 = 150
 ylim2 = 175
 
+x = np.linspace(0, xlim1, n)
+y = np.linspace(0, ylim1, n)
+
 for key, value in casos.items():
     K1, K2, a12, a21 = value
     plt.figure()
     plt.suptitle(key)
     
     # Rectas de las isoclinas
-    x = np.linspace(0, xlim1, n)
-    y = np.linspace(0, ylim1, n)
 
     n1 = K1 - a12 * y
     n2 = K2 - a21 * x
@@ -52,8 +53,8 @@ for key, value in casos.items():
     plt.legend()
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
-    plt.xlabel('Población 1')
-    plt.ylabel('Población 2')
+    plt.xlabel('Tasa de crecimiento población 1')
+    plt.ylabel('Tasa de crecimiento población 2')
 
 
     # Poblaciones en funcion del tiempo
