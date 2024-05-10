@@ -1,0 +1,63 @@
+\documentclass[12pt]{article} %[font size, tamano de hoja]{Tipo de documento}
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc} %Formato de codificación
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+\usepackage{float} %Para posicionar figuras
+\usepackage{graphicx} %Para poder poner figuras
+\usepackage{hyperref} %Permite usar hipervínculos 
+\usepackage{multicol} %Para hacer doble columna
+\usepackage{caption}
+\usepackage{verbatim}
+\graphicspath{{images/}}
+\usepackage{biblatex}
+\usepackage{csquotes}
+% \usepackage[style=numeric]{biblatex}
+% \addbibresource{main.bib} %Import the bibliography file
+
+\title{Evaluación del desempeño de interpolaciones y cálculo de trayectorias}
+\author{Tomás Benavidez, Franco Amato\\ [2mm] %\\ para nueva línea
+\small Universidad de San Andrés, Buenos Aires, Argentina}
+\date{2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    El presente trabajo aborda la evaluación del desempeño de diversos métodos de interpolación de funciones y cálculo de trayectorias, explorando métodos clásicos como la interpolación de Lagrange y Splines cúbicos. Además, se analiza el impacto del número y la distribución de los puntos de interpolación en la precisión de los resultados. Se emplea un criterio de error absoluto para comparar la calidad de las interpolaciones frente a las funciones y trayectorias reales, mostrando que la interpolación con Splines cúbicos tiende a ajustarse mejor en diversos escenarios y que el número y método para elegir los puntos para interpolar tiene un gran peso. Se concluye resaltando la importancia y los desafíos de llevar la teoría a la práctica en aplicaciones numéricas complejas en el ámbito de la ingeniería y la ciencia computacional.
+\end{abstract}
+
+\vspace{0.1cm}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+\section{Introducción}
+
+\section{Métodos preexistentes}
+
+\subsection*{Metodo de aproximación de polinomios Runge-Kutta Orden 4}
+
+\subsection*{Metodo de Euler}
+
+\section{Procedimientos y resultados}
+
+\subsection{Análisis del crecimiento de una especie en un sistema cerrado}\label{sec:1}
+\subsubsection{Modelos de Crecimiento}\label{ssec:1a}
+
+Primero, se estudió el desempeño de dos modelos de crecimiento: el modelo Exponencial y el modelo Logaritmico. Para el primero, dada una especie N, un crecimiento en el tiempo N(t), 
+y una tasa instantanea de crecimiento r, podemos describir el crecimiento como 
+
+% Aquí deberías incluir la ecuación
+
+\section{Conclusiones}
+
+\begin{thebibliography}{99} % 99 es un espacio reservado para el ancho del número de referencia más grande
+
+\end{thebibliography}
+
+\end{multicols}
+
+\end{document}
