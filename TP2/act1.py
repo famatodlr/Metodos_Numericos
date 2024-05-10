@@ -2,74 +2,76 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Valores iniciales
-N0 = 10
-N = np.linspace(0, 1000, 100)
-r = 0.1
-K = 1000
-t = np.linspace(0, 100, 1000)
-
+datos_iniciales = {
+    'N0': 25,
+    'r': 0.05,
+    'K': 500
+}
 
 # Pendiente exponencial
 def pendiente_exp(t, n):
-    return r * n
+    return datos_iniciales['r'] * n
 
 # Pendiente logística
 def pendiente_log(t, n):
-    return r * n * (1 - n/K)
-
-
-
+    return datos_iniciales['r'] * n * (1 - n/ datos_iniciales['K'])
 
 # Gráfica
-plt.plot(N, pendiente_exp(0, N), label='Exponencial')
-plt.plot(N, pendiente_log(0, N), label='Logística')
-plt.xlabel('Población')
-plt.ylabel('Tasa de crecimiento')
-plt.ylim(0, 100)
-plt.legend()
-plt.plot([500, 500], [0, 25], 'k--')
-plt.plot([0, 500], [25, 25], 'k--')
-plt.plot([500], [25], 'ro')
-plt.scatter([500], [25], color='red')
-plt.show()
+def grafico1():
+    N = np.linspace(0, 500, 100)
+
+    plt.plot(N, pendiente_exp(0, N), label='Exponencial')
+    plt.plot(N, pendiente_log(0, N), label='Logística')
+    plt.xlabel('Población')
+    plt.ylabel('Tasa de crecimiento')
+    plt.title('Pendiente de crecimiento')
+    # plt.ylim(0, 100)
+    plt.legend()
+    plt.plot([500, 500], [0, 25], 'k--')
+    plt.plot([0, 500], [25, 25], 'k--')
+    plt.plot([500], [25], 'ro')
+    plt.scatter([500], [25], color='red')
+    plt.show()
 
 def f_exp(t, n0, r):
     return n0 * np.exp((r * t))
 
 def f_log(t, n0, K, r):
     #https://courses.lumenlearning.com/calculus2/chapter/solving-the-logistic-differential-equation/
-    
+
     # return K / (1 + (K/n0 - 1) * np.exp(-r*t))
     return n0 * K * np.exp(r * t)/ ((K - n0) + n0 * np.exp(-r * t))  
 
 #Grafico de f_exp
-y_exp = f_exp(t, N0, r)
-plt.plot(t, y_exp)
-plt.xlabel('Tiempo')
-plt.ylabel('Poblacion')
-plt.title('Modelo Exponencial')
+def grafico2():
+    y_exp = f_exp(t, datos_iniciales['N0'], datos_iniciales['r'])
+    plt.plot(t, y_exp)
+    plt.xlabel('Tiempo')
+    plt.ylabel('Poblacion')
+    plt.title('Modelo Exponencial')
 
-plt.annotate(f'N0 = {N0}\nr = {r}', xy=(0, 1), xycoords='axes fraction', fontsize=12,
-             xytext=(10, -10), textcoords='offset points',
-             ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
+    plt.annotate(f'N0 = {datos_iniciales["N0"]}\nr = {datos_iniciales["r"]}', xy=(0, 1), xycoords='axes fraction', fontsize=12,
+                xytext=(10, -10), textcoords='offset points',
+                ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
 
-plt.show()
+    plt.show()
 
 #Grafico de f_log
-y_log = f_log(t, N0, K, r)
-plt.plot(t, y_log)
-plt.xlabel('Tiempo')
-plt.plot([45.8, 45.8], [0, 500], 'k--')
-plt.plot([0, 45.8], [500, 500], 'k--')
-plt.plot([45.8], [500], 'ro')
-plt.ylabel('Poblacion')
-plt.title('Modelo Logistico')
+def grafico3():
+    y_log = f_log(t, datos_iniciales['N0'], datos_iniciales['K'], datos_iniciales['r'])
+    plt.plot(t, y_log)
+    plt.xlabel('Tiempo')
+    plt.plot([45.8, 45.8], [0, 500], 'k--')
+    plt.plot([0, 45.8], [500, 500], 'k--')
+    plt.plot([45.8], [500], 'ro')
+    plt.ylabel('Poblacion')
+    plt.title('Modelo Logistico')
 
-plt.annotate(f'N0 = {N0}\nK = {K}\nr = {r}', xy=(0, 1), xycoords='axes fraction', fontsize=12,
-             xytext=(10, -10), textcoords='offset points',
-             ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
+    plt.annotate(f'N0 = {datos_iniciales["N0"]}\nK = {K}\nr = {datos_iniciales["r"]}', xy=(0, 1), xycoords='axes fraction', fontsize=12,
+                xytext=(10, -10), textcoords='offset points',
+                ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
 
-plt.show()
+    plt.show()
 
 def runge_kutta(f, x0, y0, h, n):
     x = x0
@@ -111,6 +113,7 @@ plt.plot(t, error_rk, label='Runge-Kutta')
 plt.plot(t, error_euler, label='Euler')
 plt.xlabel('Tiempo')
 plt.ylabel('Error')
+plt.yscale('log')
 plt.legend()
 plt.title('Error en Runge-Kutta y Euler (Modelo Exponencial)')
 plt.show()
@@ -127,6 +130,7 @@ plt.plot(t, error_rk, label='Runge-Kutta')
 plt.plot(t, error_euler, label='Euler')
 plt.xlabel('Tiempo')
 plt.ylabel('Error')
+plt.yscale('log')
 plt.legend()
 plt.title('Error en Runge-Kutta y Euler (Modelo Logistico)')
 plt.show()
