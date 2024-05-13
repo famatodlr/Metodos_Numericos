@@ -34,7 +34,7 @@ pendiente_P = b * N * P - q * P
 
 magnitud = np.sqrt(pendiente_N ** 2 + pendiente_P ** 2)
 
-plt.streamplot(N, P, pendiente_N / magnitud, pendiente_P / magnitud, density=[0.5, 1])
+plt.streamplot(N, P, pendiente_N / magnitud, pendiente_P / magnitud, density=0.5)
 
 # Grafica
 plt.legend()

@@ -25,7 +25,7 @@ xlim1 = 200
 ylim1 = 140
 n = 30
 
-xlim2 = 150
+xlim2 = 250
 ylim2 = 175
 
 x = np.linspace(0, xlim1, n)
@@ -53,14 +53,14 @@ for key, value in casos.items():
 
     magnitud = np.sqrt(pendiente_N1 ** 2 + pendiente_N2 ** 2)
 
-    plt.streamplot(N1, N2, pendiente_N1 / magnitud, pendiente_N2 / magnitud, density=[0.5, 1])
+    plt.streamplot(N1, N2, pendiente_N1 / magnitud, pendiente_N2 / magnitud, density=0.5)
 
     # Grafica 
     plt.legend()
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
-    plt.xlabel('Tasa de crecimiento población 1')
-    plt.ylabel('Tasa de crecimiento población 2')
+    plt.xlabel('Población 1')
+    plt.ylabel('Población 2')
 
 
     # Poblaciones en funcion del tiempo
@@ -82,7 +82,7 @@ for key, value in casos.items():
     def f_N2(t, N):
         return r2 * N[1] * (K2 - N[1] - a21 * N[0]) / K2
     
-    t = np.linspace(0, 150, 100)
+    t = np.linspace(0, 250, 100)
     N = np.zeros((2, len(t)))
     N[:,0] = [N1_0, N2_0]
 
