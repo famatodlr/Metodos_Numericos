@@ -3,17 +3,17 @@ import matplotlib.pyplot as plt
 
 #Valores iniciales
 
-r = 75
-q = 50
-a = 0.5
-b = 0.5
-K = 50
+r = 7.5
+q = 5
+a = 0.1
+b = 0.1
+K = 30
 
 n0 = 150
 p0 = 150
 
-n = np.linspace(0, 200, 20)
-p = np.linspace(0, 200, 20)
+n = np.linspace(-50, 200, 50)
+p = np.linspace(-50, 200, 50)
 
 
 
@@ -39,8 +39,8 @@ plt.streamplot(N, P, pendiente_N / magnitud, pendiente_P / magnitud, density=[0.
 
 # Grafica
 plt.legend()
-plt.xlim(0, 200)
-plt.ylim(0, 200)
+plt.xlim(0, 100)
+plt.ylim(0, 100)
 plt.xlabel('Presa')
 plt.ylabel('Depredador')
 plt.title('Presa vs Depredador')
@@ -92,7 +92,7 @@ plt.legend()
 plt.xlabel('Tiempo')
 plt.ylabel('Población')
 plt.title('Poblaciones en función del tiempo')
-plt.xlim(0, 1)
-plt.ylim(0, 300)
+plt.xlim(0, 10)
+plt.ylim(0, 200)
 plt.show()
 
