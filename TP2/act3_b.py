@@ -12,8 +12,8 @@ K = 30
 n0 = 150
 p0 = 150
 
-n = np.linspace(-50, 200, 50)
-p = np.linspace(-50, 200, 50)
+n = np.linspace(-50, 200, 100)
+p = np.linspace(-50, 200, 100)
 
 
 

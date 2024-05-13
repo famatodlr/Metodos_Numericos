@@ -85,8 +85,8 @@ for key, value in casos.items():
 
     
     plt.subplot(1, 2, 2)
-    plt.plot(t, N[0], label='Poblacioón 1')
-    plt.plot(t, N[1], label='Poblacioón 2')
+    plt.plot(t, N[0], label='Población 1')
+    plt.plot(t, N[1], label='Población 2')
     plt.legend()
     plt.xlabel('Tiempo')
     plt.ylabel('Población')

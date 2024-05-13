@@ -11,8 +11,8 @@ b = 0.1
 N0 = 75
 P0 = 75
 
-n = np.linspace(0, 200, 20)
-p = np.linspace(0, 200, 20)
+n = np.linspace(-1, 200, 20)
+p = np.linspace(-1, 200, 20)
 
 t = np.linspace(0, 200, 100)
 
@@ -56,10 +56,10 @@ def runge_kutta(f, t0, np):
     t = t0
     y = np
 
-    N1 = []
-    P1 = []
+    N1 = [np[0]]
+    P1 = [np[1]]
 
-    for _ in range(n):
+    for _ in range(n - 1):
         k1 = h * f(t, y)
         k2 = h * f(t + h/2, y + k1/2)
         k3 = h * f(t + h/2, y + k2/2)
