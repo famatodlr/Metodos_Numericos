@@ -1,95 +1,111 @@
 import numpy as np
 import matplotlib.pyplot as plt
-#condicones iniciales:
-N0 = 10
-r = 0.05
-K = 500
+from scipy.interpolate import interp1d
 
-def solucion_exponencial(t):
+
+# Parámetros
+N0 =1  # Condición inicial
+r = 0.5  # Tasa de crecimiento
+K = 40 # Capacidad de carga
+t = np.linspace(0, 200, 75) # Tiempo
+h = t[1] - t[0]  #h = 2.6666666666666665
+n = len(t)  # Número de puntos
+
+def euler(f, t, N0):
+    N = np.zeros(n)
+    N[0] = N0
+    for i in range(1, n):
+        N[i] = N[i - 1] + h * f(N[i - 1], t[i - 1])
+    return N
+
+def rk4(f, t, N0):
+    N = np.zeros(n)
+    N[0] = N0
+    for i in range(1, n):
+        k1 = h * f(N[i - 1], t[i - 1])
+        k2 = h * f(N[i - 1] + k1 / 2, t[i - 1] + h / 2)
+        k3 = h * f(N[i - 1] + k2 / 2, t[i - 1] + h / 2)
+        k4 = h * f(N[i - 1] + k3, t[i - 1] + h)
+        N[i] = N[i - 1] + (k1 + 2 * k2 + 2 * k3 + k4) / 6
+    return N
+
+def sol_expl(N0, t , r=r,):
+    """Solución exacta del modelo exponencial"""
     return N0 * np.exp(r * t)
 
-def solucion_logistica(t):
-    return K * N0 * np.exp(r * t) / ((K - N0) + N0 * np.exp(r * t))
+def dif_exp(N, t , r=r,):
+    """Ecuación diferencial del modelo exponencial"""
+    return r * N
 
-#dame el metodo de euler y de runge kutta para aproximar la solucion de la ecuacion exponencial, usando la solucion exponencial
-def euler_exponencial(t0, tf, h):
-    t = np.arange(t0, tf, h)
-    N = [N0]
-    for i in range(1, len(t)):
-        N.append(N[i - 1] + h * solucion_exponencial(t[i - 1]))
-    return t, N
+def sol_log(N0, t,  r=r,  K=K):
+    """Solución exacta del modelo logístico"""
+    return (N0*K*np.exp(r*t))/((K-N0) + N0*np.exp(r*t))
 
-def runge_kutta_exponencial(t0, tf, h):
-    t = np.arange(t0, tf, h)
-    N = [N0]
-    for i in range(1, len(t)):
-        k1 = h * solucion_exponencial(t[i - 1])
-        k2 = h * solucion_exponencial(t[i - 1] + h/2)
-        k3 = h * solucion_exponencial(t[i - 1] + h/2)
-        k4 = h * solucion_exponencial(t[i - 1] + h)
-        N.append(N[i - 1] + (k1 + 2*k2 + 2*k3 + k4)/6)
-    return t, N
+def dif_log(N, t,  r=r,):
+    """Ecuación diferencial del modelo logístico"""
+    return r * N * ((K - N) / K)
 
-#dame el metodo de euler y de runge kutta para aproximar la solucion de la ecuacion logistica, usando la solucion logistica
-def euler_logistica(t0, tf, h):
-    t = np.arange(t0, tf, h)
-    N = [N0]
-    for i in range(1, len(t)):
-        N.append(N[i - 1] + h * solucion_logistica(t[i - 1]))
-    return t, N
 
-def runge_kutta_logistica(t0, tf, h):
-    t = np.arange(t0, tf, h)
-    N = [N0]
-    for i in range(1, len(t)):
-        k1 = h * solucion_logistica(t[i - 1])
-        k2 = h * solucion_logistica(t[i - 1] + h/2)
-        k3 = h * solucion_logistica(t[i - 1] + h/2)
-        k4 = h * solucion_logistica(t[i - 1] + h)
-        N.append(N[i - 1] + (k1 + 2*k2 + 2*k3 + k4)/6)
-    return t, N
 
-#grafica la solucion de la ecuacion exponencial y sus aproximaciones por euler y runge kutta
-def grafica_exponencial():
-    t = np.linspace(0, 100, 100)
-    N_exp = solucion_exponencial(t)
-    t1, N1 = euler_exponencial(0, 100, 1)
-    t2, N2 = runge_kutta_exponencial(0, 100, 1)
-    plt.plot(t, N_exp, label='Solución exacta')
-    plt.plot(t1, N1, label='Euler')
-    plt.plot(t2, N2, label='Runge-Kutta')
+
+# Soluciones exactas
+N_exp = sol_expl(N0,  t, r)
+N_log = sol_log(N0,  t, r, K)
+
+N_euler_exp = euler(dif_exp, t, N0)
+N_rk_exp = rk4(dif_exp, t, N0)
+N_euler_log = euler(dif_log, t, N0)
+N_rk_log = rk4(dif_log, t, N0)
+
+#errores de los metodos
+error_euler_exp = np.abs(N_exp - N_euler_exp)
+error_rk_exp = np.abs(N_exp - N_rk_exp)
+error_euler_log = np.abs(N_log - N_euler_log)
+error_rk_log = np.abs(N_log - N_rk_log)
+
+# Gráficos
+def grafico_exp():
+    plt.plot(t, N_exp, label='Exacta')
+    plt.plot(t, N_euler_exp, label='Euler')
+    plt.plot(t, N_rk_exp, label='Runge-Kutta')
+    plt.ylim(0, 100)
+
     plt.xlabel('Tiempo')
     plt.ylabel('Población')
     plt.title('Modelo exponencial')
     plt.legend()
     plt.show()
 
-#grafica la solucion de la ecuacion logistica y sus aproximaciones por euler y runge kutta
-def grafica_logistica():
-    t = np.linspace(0, 100, 100)
-    N_log = solucion_logistica(t)
-    t1, N1 = euler_logistica(0, 100, 1)
-    t2, N2 = runge_kutta_logistica(0, 100, 1)
-    plt.plot(t, N_log, label='Solución exacta')
-    plt.plot(t1, N1, label='Euler')
-    plt.plot(t2, N2, label='Runge-Kutta')
+    plt.plot(t, error_euler_exp, label='Error Euler')
+    plt.plot(t, error_rk_exp, label='Error Runge-Kutta')
+    plt.xlabel('Tiempo')
+    plt.ylabel('Error')
+    plt.yscale('log')
+    plt.title('Error modelo exponencial')
+    plt.legend()
+    plt.show()
+
+def grafico_log():
+    plt.plot(t, N_log, label='Exacta')
+    plt.plot(t, N_euler_log, label='Euler')
+    plt.plot(t, N_rk_log, label='Runge-Kutta')
+
     plt.xlabel('Tiempo')
     plt.ylabel('Población')
     plt.title('Modelo logístico')
+    plt.ylim(0, 50)
+    plt.xlim(0, 50)
     plt.legend()
     plt.show()
 
-#grafico de la solucion exponencial y logistica
-def grafica():
-    t = np.linspace(0, 1000, 500)
-    N_exp = solucion_exponencial(t)
-    N_log = solucion_logistica(t)
-    plt.plot(t, N_exp, label='Exponencial')
-    plt.plot(t, N_log, label='Logística')
+    plt.plot(t, error_euler_log, label='Error Euler')
+    plt.plot(t, error_rk_log, label='Error Runge-Kutta')
     plt.xlabel('Tiempo')
-    plt.ylabel('Población')
-    plt.title('Modelos de crecimiento')
+    plt.ylabel('Error')
+    plt.yscale('symlog', linthresh=0.001)
+    plt.title('Error modelo logístico')
     plt.legend()
     plt.show()
 
-grafica()
+grafico_log()
+

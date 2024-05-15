@@ -56,14 +56,37 @@ def caso3():
     N_exp = solucion_exponencial(t, N0, r)
     N_log = solucion_logistica(t, N0, K, r)
 
-    # plt.plot(t, N_exp, label='Exponencial')
+    plt.plot(t, N_exp, label='Exponencial')
     plt.plot(t, N_log, label='Logística')
     plt.xlabel('Tiempo')
     plt.ylabel('Población')
-    plt.ylim(0, 400)
+    plt.ylim(0, 600)
+    plt.plot([0, 100], [K, K], 'k--')
+
     plt.title('Modelos de crecimiento')
     plt.legend()
     plt.show()
+
+def caso4():
+    #K = N0
+    t = np.linspace(0, 100, 100)
+    N0 = 100
+    r = 0.05
+    K = 100
+
+    N_exp = solucion_exponencial(t, N0, r)
+    N_log = solucion_logistica(t, N0, K, r)
+
+    plt.plot(t, N_exp, label='Exponencial')
+    plt.plot(t, N_log, label='Logística')   
+    plt.xlabel('Tiempo')
+    plt.ylabel('Población')
+    plt.plot([0, 100], [K, K], 'k--')
+    plt.ylim(0, 500)
+    plt.legend()
+    plt.show()
+
+
 
 def caso1VN():
     N = np.linspace(0, 100, 100)
@@ -92,17 +115,18 @@ def caso2VN():
     plt.plot(N, N_exp, label='Exponencial')
     plt.plot(N, N_log, label='Logística')
     plt.xlabel('Población')
-    plt.xlim(0, 1000)\
-    #marcar el punto (500, 12.5), y poner lineas punteadas en x y y, y poner una etiqueta en el punto
+    plt.xlim(0, 1000)
     plt.plot([500, 500], [0, 12.5], 'k--')
     plt.plot([0, 500], [12.5, 12.5], 'k--')
     plt.plot([500], [12.5], 'ro')
     plt.scatter([500], [12.5], color='red')
     #marcar los valores 12,5 y 500 en el eje x y y
+    font = {'fontname':'Arial', 'fontsize':8, 'fontweight':'bold'}
 
-    plt.yticks([12.5], ['12.5'])
-    plt.xticks([500], ['500'])
+    plt.text(510, 14, '(500, 12.5)', fontdict=font, ha='center') 
     plt.ylabel('Variación poblacional')
+    plt.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     plt.legend()
     plt.show()
 
+caso1VN()
