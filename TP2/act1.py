@@ -98,3 +98,4 @@ def caso2VN():
     plt.ylabel('Variación poblacional')
     plt.legend()
     plt.show()
+
