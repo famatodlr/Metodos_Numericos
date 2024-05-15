@@ -24,19 +24,26 @@ def solucion_logistica(t, N0, K, r):
 #Caso 8: r > 0 => en el modelo logistico, hay crecimiento
 
 def caso2():
-    t = np.linspace(0, 100, 100)
+    t = np.linspace(0, 150, 100)
     N0 = 10
     r = 0.05
     K = 100
+
+    recta = []
+    for _ in t:
+        recta.append(K)
 
     N_exp = solucion_exponencial(t, N0, r)
     N_log = solucion_logistica(t, N0, K, r)
 
     plt.plot(t, N_exp, label='Exponencial')
     plt.plot(t, N_log, label='Logística')
+    plt.plot(t, recta, 'k--')
     plt.xlabel('Tiempo')
     plt.ylabel('Población')
     plt.title('Modelos de crecimiento')
+    plt.xlim(0, 150)
+    plt.ylim(0, 150)
     plt.legend()
     plt.show()
 
@@ -98,3 +105,5 @@ def caso2VN():
     plt.ylabel('Variación poblacional')
     plt.legend()
     plt.show()
+
+caso2()
