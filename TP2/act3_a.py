@@ -11,8 +11,8 @@ b = 0.1
 N0 = 75
 P0 = 75
 
-n = np.linspace(-1, 200, 20)
-p = np.linspace(-1, 200, 20)
+n = np.linspace(-50, 200, 20)
+p = np.linspace(-50, 200, 20)
 
 t = np.linspace(0, 200, 100)
 
@@ -38,8 +38,10 @@ plt.streamplot(N, P, pendiente_N / magnitud, pendiente_P / magnitud, density=0.5
 
 # Grafica
 plt.legend()
-plt.xlim(0, 200)
-plt.ylim(0, 200)
+plt.xlim(-50, 200)
+plt.ylim(-50, 200)
+plt.axhline(0, color='black')
+plt.axvline(0, color='black')
 plt.xlabel('Presa')
 plt.ylabel('Depredador')
 plt.title('Presa vs Depredador')

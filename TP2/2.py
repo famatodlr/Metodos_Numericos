@@ -39,7 +39,22 @@ for key, value in casos.items():
     # Rectas de las isoclinas
 
     n1 = K1 - a12 * y
+    # ordenada al origen --> K1 / a12
+    #raiz --> K1
+
     n2 = K2 - a21 * x
+    # ordenada al origen --> K2
+    #raiz --> K2 / a21
+
+    #Caso 3 
+
+    #k2 > k1 / a12
+    # k1 > k2 / a21
+
+    #caso 4
+
+    #k1 / a12 > k2
+    #k2 / a21 > k1
 
     plt.subplot(1, 2, 1)
     plt.plot(n1, y, label='K1 - a12 * N2 = 0')
