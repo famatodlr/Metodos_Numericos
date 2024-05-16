@@ -39,7 +39,7 @@ NP0_6 = np.array([75, 75])
 
 def runge_kutta(f, t0, np):
     h = 0.005
-    n = 5b00
+    n = 500
     
     t = t0
     y = np
