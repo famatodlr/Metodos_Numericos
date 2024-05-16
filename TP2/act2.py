@@ -255,4 +255,7 @@ def caso4():
     
     plt.show()
 
+caso1()
+caso2()
+caso3()
 caso4()
