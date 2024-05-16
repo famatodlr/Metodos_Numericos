@@ -7,7 +7,7 @@ r = 2.5
 q = 5
 a = 0.025
 b = 0.1
-K = 100
+K = 30
 
 n = np.linspace(-50, 200, 20)
 p = np.linspace(-50, 200, 20)
@@ -25,18 +25,20 @@ plt.plot(n, iso2, label='P = (r/a) * (1 - N/K)')
 
 # Grafica
 plt.legend()
-plt.xlim(0, 125)
-plt.ylim(0, 200)
+plt.xlim(-10, 125)
+plt.ylim(-10, 200)
 plt.xlabel('Presa')
 plt.ylabel('Depredador')
 plt.title('Presa vs Depredador')
 
 # Poblaciones en funcion del tiempo
 NP0_2 = np.array([50, 50])
-NP0_3 = np.array([80, 125])
-NP0_4 = np.array([20, 25])
+NP0_3 = np.array([20, 125])
+NP0_4 = np.array([10, 25])
 NP0_5 = np.array([40, 100])
 NP0_6 = np.array([70, 25])
+NP0_7 = np.array([0, 60])
+NP0_8 = np.array([60, 0])
 
 def runge_kutta(f, t0, np):
     h = 0.005
@@ -69,6 +71,8 @@ N3, P3 = runge_kutta(f, 0, NP0_3)
 N4, P4 = runge_kutta(f, 0, NP0_4)
 N5, P5 = runge_kutta(f, 0, NP0_5)
 N6, P6 = runge_kutta(f, 0, NP0_6)
+N7, P7 = runge_kutta(f, 0, NP0_7)
+N8, P8 = runge_kutta(f, 0, NP0_8)
 
 frac = 100
 
@@ -86,5 +90,11 @@ plt.arrow(N5[len(N5)//frac], P5[len(P5)//frac], N5[len(N5)//frac + 1] - N5[len(N
 
 plt.plot(N6, P6, color='black')
 plt.arrow(N6[len(N6)//frac], P6[len(P6)//frac], N6[len(N6)//frac + 1] - N6[len(N6)//frac], P6[len(P6)//frac + 1] - P6[len(P6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N7, P7, color='black')
+plt.arrow(N7[len(N7)//frac], P7[len(P7)//frac], N7[len(N7)//frac + 1] - N7[len(N7)//frac], P7[len(P7)//frac + 1] - P7[len(P7)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N8, P8, color='black')
+plt.arrow(N8[len(N8)//frac], P8[len(P8)//frac], N8[len(N8)//frac + 1] - N8[len(N8)//frac], P8[len(P8)//frac + 1] - P8[len(P8)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
 plt.show()

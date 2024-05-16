@@ -24,8 +24,8 @@ plt.plot(n, iso2, label='P = (r/a)')
 
 # Grafica
 plt.legend()
-plt.xlim(0, 200)
-plt.ylim(0, 200)
+plt.xlim(-10, 200)
+plt.ylim(-10, 200)
 plt.xlabel('Presa')
 plt.ylabel('Depredador')
 plt.title('Presa vs Depredador')
@@ -36,6 +36,8 @@ NP0_3 = np.array([25, 25])
 NP0_4 = np.array([40, 60])
 NP0_5 = np.array([125, 25])
 NP0_6 = np.array([75, 75])
+NP0_7 = np.array([0, 75])
+NP0_8 = np.array([75, 0])
 
 def runge_kutta(f, t0, np):
     h = 0.005
@@ -68,6 +70,8 @@ N3, P3 = runge_kutta(f, 0, NP0_3)
 N4, P4 = runge_kutta(f, 0, NP0_4)
 N5, P5 = runge_kutta(f, 0, NP0_5)
 N6, P6 = runge_kutta(f, 0, NP0_6)
+N7, P7 = runge_kutta(f, 0, NP0_7)
+N8, P8 = runge_kutta(f, 0, NP0_8)
 
 frac = 100
 
@@ -85,6 +89,12 @@ plt.arrow(N5[len(N5)//frac], P5[len(P5)//frac], N5[len(N5)//frac + 1] - N5[len(N
 
 plt.plot(N6, P6, color='black')
 plt.arrow(N6[len(N6)//frac], P6[len(P6)//frac], N6[len(N6)//frac + 1] - N6[len(N6)//frac], P6[len(P6)//frac + 1] - P6[len(P6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N7, P7, color='black')
+plt.arrow(N7[len(N7)//frac], P7[len(P7)//frac], N7[len(N7)//frac + 1] - N7[len(N7)//frac], P7[len(P7)//frac + 1] - P7[len(P7)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N8, P8, color='black')
+plt.arrow(N8[len(N8)//frac], P8[len(P8)//frac], N8[len(N8)//frac + 1] - N8[len(N8)//frac], P8[len(P8)//frac + 1] - P8[len(P8)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
 plt.show()
 
