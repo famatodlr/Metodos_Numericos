@@ -91,12 +91,10 @@ def caso1():
 
     plt.arrow(N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac], N1_3[len(N1_3)//frac + 1] - N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac + 1] - N2_3[len(N2_3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
-    plt.legend()
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
-    plt.xlabel('Popblación 1')
+    plt.xlabel('Población 1')
     plt.ylabel('Población 2')
-    
     plt.show()
 
 def caso2():
@@ -133,7 +131,6 @@ def caso2():
 
     plt.arrow(N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac], N1_3[len(N1_3)//frac + 1] - N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac + 1] - N2_3[len(N2_3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
-    plt.legend()
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
     plt.xlabel('Población 1')
@@ -162,11 +159,14 @@ def caso3():
     NP0_4 = np.array([150, 40])
     N1_4, N2_4 = runge_kutta(f, NP0_4, 'Caso 3')
 
-    NP0_5 = np.array([100, 60])
+    NP0_5 = np.array([110, 30])
     N1_5, N2_5 = runge_kutta(f, NP0_5, 'Caso 3')
 
     NP0_6 = np.array([25, 100])
     N1_6, N2_6 = runge_kutta(f, NP0_6, 'Caso 3')
+
+    NP0_7 = np.array([80, 30])
+    N1_7, N2_7 = runge_kutta(f, NP0_7, 'Caso 3')
 
     frac = 100
     
@@ -192,7 +192,9 @@ def caso3():
     plt.plot(N1_6, N2_6, color='black')
     plt.arrow(N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac], N1_6[len(N1_6)//frac + 1] - N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac + 1] - N2_6[len(N2_6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
-    plt.legend()
+    plt.plot(N1_7, N2_7, color='black')
+    plt.arrow(N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac], N1_7[len(N1_7)//frac + 1] - N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac + 1] - N2_7[len(N2_7)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
     plt.xlabel('Población 1')
@@ -251,7 +253,6 @@ def caso4():
     plt.plot(N1_6, N2_6, color='black')
     plt.arrow(N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac], N1_6[len(N1_6)//frac + 1] - N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac + 1] - N2_6[len(N2_6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 
-    plt.legend()
     plt.xlim(0, xlim1)
     plt.ylim(0, ylim1)
     plt.xlabel('Población 1')
@@ -259,7 +260,4 @@ def caso4():
     
     plt.show()
 
-caso1()
-caso2()
 caso3()
-caso4()

@@ -3,19 +3,16 @@ import matplotlib.pyplot as plt
 
 #Valores iniciales
 
-r = 7.5
+r = 2.5
 q = 5
-a = 0.1
+a = 0.025
 b = 0.1
 K = 100
 
-n0 = 150
-p0 = 150
+n = np.linspace(-50, 200, 20)
+p = np.linspace(-50, 200, 20)
 
-n = np.linspace(-50, 200, 100)
-p = np.linspace(-50, 200, 100)
-
-
+t = np.linspace(0, 200, 100)
 
 plt.figure()
 
@@ -23,52 +20,35 @@ plt.figure()
 iso1 = np.array([q/b] * len(n))
 iso2 = r/a * (1 - n/K)
 
-plt.subplot(1, 2, 1)
 plt.plot(iso1, n, label='N = q/b')
-plt.plot(n, iso2, label='P = r/a(1 - N/K)')
-
-# Campo vectorial
-N,P = np.meshgrid(n, p)
-
-pendiente_N = r * N * (1 - N / K) - a * N * P
-pendiente_P = b * N * P - q * P
-
-magnitud = np.sqrt(pendiente_N ** 2 + pendiente_P ** 2)
-
-plt.streamplot(N, P, pendiente_N / magnitud, pendiente_P / magnitud, density=1.5)
+plt.plot(n, iso2, label='P = (r/a) * (1 - N/K)')
 
 # Grafica
 plt.legend()
-plt.xlim(0, 100)
-plt.ylim(0, 100)
+plt.xlim(0, 125)
+plt.ylim(0, 200)
 plt.xlabel('Presa')
 plt.ylabel('Depredador')
 plt.title('Presa vs Depredador')
 
-
 # Poblaciones en funcion del tiempo
-plt.subplot(1, 2, 2)
+NP0_2 = np.array([50, 50])
+NP0_3 = np.array([80, 125])
+NP0_4 = np.array([20, 25])
+NP0_5 = np.array([40, 100])
+NP0_6 = np.array([70, 25])
 
-NP0 = np.array([n0, p0])
-
-h = 0.005
-n = 51
-j = int(n // h)
-
-t = np.linspace(0, 150, j)
-
-def runge_kutta(f, np):
+def runge_kutta(f, t0, np):
+    h = 0.005
+    n = 1000
     
-    t = 0
+    t = t0
     y = np
 
-    N1 = []
-    P1 = []
+    N1 = [np[0]]
+    P1 = [np[1]]
 
-    N1.append(y[0])
-    P1.append(y[1])
-
-    for _ in range(j - 1):
+    for _ in range(n - 1):
         k1 = h * f(t, y)
         k2 = h * f(t + h/2, y + k1/2)
         k3 = h * f(t + h/2, y + k2/2)
@@ -84,15 +64,27 @@ def runge_kutta(f, np):
 def f(t, y):
     return np.array([r*y[0]*(1 - y[0]/K) - a*y[0]*y[1], b*y[0]*y[1] - q*y[1]])
 
-N1, P1 = runge_kutta(f, NP0)
+N2, P2 = runge_kutta(f, 0, NP0_2)
+N3, P3 = runge_kutta(f, 0, NP0_3)
+N4, P4 = runge_kutta(f, 0, NP0_4)
+N5, P5 = runge_kutta(f, 0, NP0_5)
+N6, P6 = runge_kutta(f, 0, NP0_6)
 
-plt.plot(t, N1, label='Presa')
-plt.plot(t, P1, label='Depredador')
-plt.legend()
-plt.xlabel('Tiempo')
-plt.ylabel('Población')
-plt.title('Poblaciones en función del tiempo')
-plt.xlim(0, 10)
-plt.ylim(0, 200)
+frac = 100
+
+plt.plot(N2, P2, color='black')
+plt.arrow(N2[len(N2)//frac], P2[len(P2)//frac], N2[len(N2)//frac + 1] - N2[len(N2)//frac], P2[len(P2)//frac + 1] - P2[len(P2)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N3, P3, color='black')
+plt.arrow(N3[len(N3)//frac], P3[len(P3)//frac], N3[len(N3)//frac + 1] - N3[len(N3)//frac], P3[len(P3)//frac + 1] - P3[len(P3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N4, P4, color='black')
+plt.arrow(N4[len(N4)//frac], P4[len(P4)//frac], N4[len(N4)//frac + 1] - N4[len(N4)//frac], P4[len(P4)//frac + 1] - P4[len(P4)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N5, P5, color='black')
+plt.arrow(N5[len(N5)//frac], P5[len(P5)//frac], N5[len(N5)//frac + 1] - N5[len(N5)//frac], P5[len(P5)//frac + 1] - P5[len(P5)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+plt.plot(N6, P6, color='black')
+plt.arrow(N6[len(N6)//frac], P6[len(P6)//frac], N6[len(N6)//frac + 1] - N6[len(N6)//frac], P6[len(P6)//frac + 1] - P6[len(P6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
 plt.show()
-
