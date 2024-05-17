@@ -12,8 +12,12 @@ casos = {
         'Caso 1': [200, 50, 2, 0.5],
         'Caso 2': [100, 100, 2, 0.5],
         'Caso 3': [200, 100, 5, 0.75],
-        'Caso 4': [100, 60, 0.2, 0.2]}
+        'Caso 4': [100, 60, 0.2, 0.2],
+        'Caso 5': [60, 60, 0, 0.2],
+        'Caso 6': [100, 60, 0, -0.2],
+        'Caso 7': [100, 100, 0, 0],
         #'Caso X': [K1, K2, a12, a21]        
+        }
 
 r1 = 0.6
 r2 = 0.6
@@ -23,7 +27,8 @@ ylim1 = 120
 n = 100
 t = np.linspace(0, 250, 100)
 
-x = np.linspace(0, xlim1, n)
+# x = np.linspace(0, xlim1, n)
+x = np.linspace(0, 400, n)
 y = np.linspace(0, ylim1, n)
 
 def runge_kutta(f, n0, caso):
@@ -255,7 +260,202 @@ def caso4():
     
     plt.show()
 
-caso1()
-caso2()
-caso3()
-caso4()
+def caso5():
+    K1, K2, a12, a21 = casos['Caso 5']
+
+    # Rectas de las isoclinas
+    iso1 = K1 - a12 * y       # ordenada al origen --> K1 / a12       #raiz --> K1
+    iso2 = K2 - a21 * x       # ordenada al origen --> K2             #raiz --> K2 / a21
+
+    # Poblaciones en funcion del tiempo
+    NP0_1 = np.array([25, 25])
+    N1_1, N2_1 = runge_kutta(f, NP0_1, 'Caso 5')
+
+    NP0_2 = np.array([75, 10])
+    N1_2, N2_2 = runge_kutta(f, NP0_2, 'Caso 5')
+
+    NP0_3 = np.array([150, 20])
+    N1_3, N2_3 = runge_kutta(f, NP0_3, 'Caso 5')
+
+    NP0_4 = np.array([150, 40])
+    N1_4, N2_4 = runge_kutta(f, NP0_4, 'Caso 5')
+
+    NP0_5 = np.array([100, 60])
+    N1_5, N2_5 = runge_kutta(f, NP0_5, 'Caso 5')
+
+    NP0_6 = np.array([25, 100])
+    N1_6, N2_6 = runge_kutta(f, NP0_6, 'Caso 5')
+
+    frac = 100
+    
+    plt.figure()
+    plt.plot(iso1, y, label='Iso1')
+    plt.plot(x, iso2, label='Iso2')
+    
+    plt.plot(N1_1, N2_1, color='black')
+    plt.arrow(N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac], N1_1[len(N1_1)//frac + 1] - N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac + 1] - N2_1[len(N2_1)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_2, N2_2, color='black')
+    plt.arrow(N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac], N1_2[len(N1_2)//frac + 1] - N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac + 1] - N2_2[len(N2_2)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_3, N2_3, color='black')
+    plt.arrow(N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac], N1_3[len(N1_3)//frac + 1] - N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac + 1] - N2_3[len(N2_3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_4, N2_4, color='black')
+    plt.arrow(N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac], N1_4[len(N1_4)//frac + 1] - N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac + 1] - N2_4[len(N2_4)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_5, N2_5, color='black')
+    plt.arrow(N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac], N1_5[len(N1_5)//frac + 1] - N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac + 1] - N2_5[len(N2_5)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_6, N2_6, color='black')
+    plt.arrow(N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac], N1_6[len(N1_6)//frac + 1] - N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac + 1] - N2_6[len(N2_6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    # plt.xlim(0, xlim1)
+    # plt.ylim(0, ylim1)
+    plt.xlim(0, 350)
+    plt.ylim(0, 120)
+    plt.xlabel('Población 1')
+    plt.ylabel('Población 2')
+    plt.legend()
+
+    plt.show()
+
+def caso6():
+    K1, K2, a12, a21 = casos['Caso 6']
+
+    # Rectas de las isoclinas
+    iso1 = K1 - a12 * y       # ordenada al origen --> K1 / a12       #raiz --> K1
+    iso2 = K2 - a21 * x       # ordenada al origen --> K2             #raiz --> K2 / a21
+
+    # Poblaciones en funcion del tiempo
+    NP0_1 = np.array([25, 25])
+    N1_1, N2_1 = runge_kutta(f, NP0_1, 'Caso 6')
+
+    NP0_2 = np.array([75, 10])
+    N1_2, N2_2 = runge_kutta(f, NP0_2, 'Caso 6')
+
+    NP0_3 = np.array([150, 20])
+    N1_3, N2_3 = runge_kutta(f, NP0_3, 'Caso 6')
+
+    NP0_4 = np.array([150, 40])
+    N1_4, N2_4 = runge_kutta(f, NP0_4, 'Caso 6')
+
+    NP0_5 = np.array([100, 60])
+    N1_5, N2_5 = runge_kutta(f, NP0_5, 'Caso 6')
+
+    NP0_6 = np.array([25, 100])
+    N1_6, N2_6 = runge_kutta(f, NP0_6, 'Caso 6')
+
+    NP0_7 = np.array([150, 100])
+    N1_7, N2_7 = runge_kutta(f, NP0_7, 'Caso 6')
+
+
+    frac = 100
+    
+    plt.figure()
+    plt.plot(iso1, y, label='Iso1')
+    plt.plot(x, iso2, label='Iso2')
+    
+    plt.plot(N1_1, N2_1, color='black')
+    plt.arrow(N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac], N1_1[len(N1_1)//frac + 1] - N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac + 1] - N2_1[len(N2_1)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_2, N2_2, color='black')
+    plt.arrow(N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac], N1_2[len(N1_2)//frac + 1] - N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac + 1] - N2_2[len(N2_2)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_3, N2_3, color='black')
+    plt.arrow(N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac], N1_3[len(N1_3)//frac + 1] - N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac + 1] - N2_3[len(N2_3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_4, N2_4, color='black')
+    plt.arrow(N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac], N1_4[len(N1_4)//frac + 1] - N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac + 1] - N2_4[len(N2_4)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_5, N2_5, color='black')
+    plt.arrow(N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac], N1_5[len(N1_5)//frac + 1] - N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac + 1] - N2_5[len(N2_5)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_6, N2_6, color='black')
+    plt.arrow(N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac], N1_6[len(N1_6)//frac + 1] - N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac + 1] - N2_6[len(N2_6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_7, N2_7, color='black')
+    plt.arrow(N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac], N1_7[len(N1_7)//frac + 1] - N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac + 1] - N2_7[len(N2_7)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+
+    plt.xlim(0, xlim1)
+    plt.ylim(0, ylim1)
+    plt.xlabel('Población 1')
+    plt.ylabel('Población 2')
+
+    plt.show()
+
+def caso7():
+    K1, K2, a12, a21 = casos['Caso 7']
+    y = np.linspace(0, 200, 1000)
+    # Rectas de las isoclinas
+    iso1 = K1 - a12 * y       # ordenada al origen --> K1 / a12       #raiz --> K1
+    iso2 = K2 - a21 * x       # ordenada al origen --> K2             #raiz --> K2 / a21
+
+    # Poblaciones en funcion del tiempo
+    NP0_1 = np.array([25, 25])
+    N1_1, N2_1 = runge_kutta(f, NP0_1, 'Caso 7')
+
+    NP0_2 = np.array([75, 10])
+    N1_2, N2_2 = runge_kutta(f, NP0_2, 'Caso 7')
+
+    NP0_3 = np.array([150, 20])
+    N1_3, N2_3 = runge_kutta(f, NP0_3, 'Caso 7')
+
+    NP0_4 = np.array([150, 40])
+    N1_4, N2_4 = runge_kutta(f, NP0_4, 'Caso 7')
+
+    NP0_5 = np.array([100, 60])
+    N1_5, N2_5 = runge_kutta(f, NP0_5, 'Caso 7')
+
+    NP0_6 = np.array([25, 125])
+    N1_6, N2_6 = runge_kutta(f, NP0_6, 'Caso 7')
+
+    NP0_7 = np.array([150, 125])
+    N1_7, N2_7 = runge_kutta(f, NP0_7, 'Caso 7')
+
+    frac = 100
+    
+    plt.figure()
+    plt.plot(iso1, y, label='Iso1')
+    plt.plot(x, iso2, label='Iso2')
+    
+    plt.plot(N1_1, N2_1, color='black')
+    plt.arrow(N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac], N1_1[len(N1_1)//frac + 1] - N1_1[len(N1_1)//frac], N2_1[len(N2_1)//frac + 1] - N2_1[len(N2_1)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_2, N2_2, color='black')
+    plt.arrow(N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac], N1_2[len(N1_2)//frac + 1] - N1_2[len(N1_2)//frac], N2_2[len(N2_2)//frac + 1] - N2_2[len(N2_2)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_3, N2_3, color='black')
+    plt.arrow(N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac], N1_3[len(N1_3)//frac + 1] - N1_3[len(N1_3)//frac], N2_3[len(N2_3)//frac + 1] - N2_3[len(N2_3)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_4, N2_4, color='black')
+    plt.arrow(N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac], N1_4[len(N1_4)//frac + 1] - N1_4[len(N1_4)//frac], N2_4[len(N2_4)//frac + 1] - N2_4[len(N2_4)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_5, N2_5, color='black')
+    plt.arrow(N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac], N1_5[len(N1_5)//frac + 1] - N1_5[len(N1_5)//frac], N2_5[len(N2_5)//frac + 1] - N2_5[len(N2_5)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_6, N2_6, color='black')
+    plt.arrow(N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac], N1_6[len(N1_6)//frac + 1] - N1_6[len(N1_6)//frac], N2_6[len(N2_6)//frac + 1] - N2_6[len(N2_6)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.plot(N1_7, N2_7, color='black')
+    plt.arrow(N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac], N1_7[len(N1_7)//frac + 1] - N1_7[len(N1_7)//frac], N2_7[len(N2_7)//frac + 1] - N2_7[len(N2_7)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
+
+    plt.xlim(0, xlim1)
+    plt.ylim(0, 200)
+    plt.xlabel('Población 1')
+    plt.ylabel('Población 2')
+    plt.legend()
+
+    plt.show()
+
+
+
+
+# caso1()
+# caso2()
+# caso3()
+# caso4()
+# caso5()
+# caso6()
+caso7()
