@@ -86,8 +86,6 @@ def caso4():
     plt.legend()
     plt.show()
 
-
-
 def caso1VN():
     N = np.linspace(0, 100, 100)
     r = 0.05
@@ -129,4 +127,4 @@ def caso2VN():
     plt.legend()
     plt.show()
 
-caso1VN()
+#observacion: los casos no graficados estan descritos en el paper

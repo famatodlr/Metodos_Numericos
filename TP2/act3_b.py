@@ -76,6 +76,9 @@ N8, P8 = runge_kutta(f, 0, NP0_8)
 
 frac = 100
 
+#funcionamiento plt.arrow: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.arrow.html
+#graficando una flecha que va desde el punto (N2[len(N2)//frac], P2[len(P2)//frac]) hasta el punto (N2[len(N2)//frac + 1], P2[len(P2)//frac + 1])
+
 plt.plot(N2, P2, color='black')
 plt.arrow(N2[len(N2)//frac], P2[len(P2)//frac], N2[len(N2)//frac + 1] - N2[len(N2)//frac], P2[len(P2)//frac + 1] - P2[len(P2)//frac], head_width = 3, head_length = 4, fc = 'black', ec = 'black')
 

@@ -1,12 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#puntos fijos
-#caso 1: trivial (0,0)
-#caso 2: igualacion de las isoclinas
-#caso 3: K1 o k2 = 0
-#r = la velocidad a la que se acercan los puntos fijos
-
 #Valores iniciales
 casos = {
         'Caso 1': [200, 50, 2, 0.5],
@@ -143,7 +137,6 @@ def caso2():
     
     plt.show()
 
-
 def caso3():
     K1, K2, a12, a21 = casos['Caso 3']
 
@@ -201,7 +194,6 @@ def caso3():
     
     plt.show()
     
-
 def caso4():
     K1, K2, a12, a21 = casos['Caso 4']
 
@@ -448,14 +440,3 @@ def caso7():
     plt.legend()
 
     plt.show()
-
-
-
-
-# caso1()
-# caso2()
-# caso3()
-# caso4()
-# caso5()
-# caso6()
-caso7()
